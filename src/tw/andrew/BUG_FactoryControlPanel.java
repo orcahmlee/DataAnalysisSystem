@@ -78,10 +78,9 @@ public class BUG_FactoryControlPanel extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			m.timerReRun();
-			text.setText(m.getMachineName() + " reruned!");
+			text.setText(m.getMachineName() + " rerunning!");
 			System.out.println(m.getMachineName() + " RERUN!!!");
-		}
-		
+		}		
 	}
 	
 	public static void main(String[] args) {

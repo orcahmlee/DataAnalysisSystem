@@ -1,7 +1,10 @@
 package tw.andrew;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+/*
+ * This class collects the informations of one machine.
+ * This class send the informations to database.
+ * This class extends TimerTask.
+ * It's can automatically generate and send data to database by a certain period of time
+ */
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,11 +13,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.TimerTask;
 
-//Information extends TimerTask. It's can automatically generate by a certain period of time
 class InformationOfMachine extends TimerTask {
 	private String name;
 	InformationOfMachine(String name) {
-		this.name = name; // the name of the machine
+		this.name = name; // The name of the machine
 	}
 	@Override
 	public void run() {
@@ -46,6 +48,7 @@ class InformationOfMachine extends TimerTask {
 //		Properties prop = new Properties();
 //		prop.put("user", "root");
 //		prop.put("password", "root");
+//		
 //		// Autoclose the Connection
 //		try (Connection conn = 
 //				DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/andrew", prop);)

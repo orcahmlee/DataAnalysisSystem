@@ -1,4 +1,8 @@
 package tw.andrew;
+/*
+ * This class create new data of date and current time.
+ */
+
 
 import java.util.Calendar;
 

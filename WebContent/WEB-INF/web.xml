@@ -8,11 +8,11 @@
   </welcome-file-list>
   <context-param>
     <param-name>upload-path</param-name>
-    <param-value>/Users/Andrew/git/J2EE/andrew_J2EE/WebContent/upload</param-value>
+    <param-value>/Users/Andrew/git/</param-value>
   </context-param>
   <context-param>
     <description>畫面樣板檔案放置路徑</description>
     <param-name>template-path</param-name>
-    <param-value>/Users/Andrew/git/J2EE/andrew_J2EE/WebContent/templates</param-value>
+    <param-value>/Users/Andrew/git/</param-value>
   </context-param>
 </web-app>

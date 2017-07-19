@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import tw.andrew.BUG_FactoryControlPanel.MachineReRun;
+
 public class FactoryControlPanel extends JFrame {
 	Button machine1Run, machine1Stop, machine1ReRun, machine2Run, machine2Stop;
 	TextField textM1, textM2, textM3, textM4;
@@ -15,22 +17,19 @@ public class FactoryControlPanel extends JFrame {
 	public FactoryControlPanel() {
 		super("Factory Control Panel");
 		
-		
-		
-		Machines m1 = new Machines("M1", 4000);
+		Machines m1 = new Machines("M1", 5000); // 
 		machine1Run = new Button("M1 RUN");
-		add(machine1Run);
-		textM1 = new TextField(70);
-		add(textM1);
-		machine1Run.addActionListener(new MachineRun(m1, textM1));
-
+		textM1 = new TextField(50);
 		machine1ReRun = new Button("M1 RERUN");
-		add(machine1ReRun);
-		machine1ReRun.addActionListener(new MachineReRun(m1, textM1));
-		
 		machine1Stop = new Button("M1 STOP");
-		add(machine1Stop);
+		machine1Run.addActionListener(new MachineRun(m1, textM1));
+		machine1ReRun.addActionListener(new MachineReRun(m1, textM1));
 		machine1Stop.addActionListener(new MachineStop(m1, textM1));
+		
+		add(machine1Run); // The position of button decided by where you add.	
+		add(textM1);
+		add(machine1ReRun);
+		add(machine1Stop);
 
 		
 //		Machines m2 = new Machines("M2", 4000);
@@ -44,8 +43,9 @@ public class FactoryControlPanel extends JFrame {
 //		add(machine2Stop);
 //		machine2Stop.addActionListener(new MachineStop(m2, textM2));
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		setLayout(new FlowLayout()); // *** Layout Manager
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setSize(800, 600);
 	}
@@ -75,7 +75,7 @@ public class FactoryControlPanel extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			m.timerStop();
-			text.setText(m.getMachineName() +" stopped!");
+			text.setText(m.getMachineName() +" was stopped!");
 			System.out.println(m.getMachineName() + " STOP!");
 		}		
 	}
@@ -89,12 +89,11 @@ public class FactoryControlPanel extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			m.timerReRun();
-			text.setText(m.getMachineName() + " reruned!");
+			text.setText(m.getMachineName() + " is rerunning!");
 			System.out.println(m.getMachineName() + " RERUN!!!");
-		}
-		
+		}		
 	}
-	
+
 	
 	
 	
@@ -108,18 +107,4 @@ public class FactoryControlPanel extends JFrame {
 	public static void main(String[] args) {
 		new FactoryControlPanel();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
