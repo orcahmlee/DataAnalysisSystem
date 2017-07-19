@@ -15,8 +15,7 @@ public class BUG_FactoryControlPanel extends JFrame {
 	public BUG_FactoryControlPanel() {
 		super("Factory Control Panel");
 		
-		
-		
+			
 		BUG_Machines m1 = new BUG_Machines("M1", 4000);
 		machine1Run = new Button("M1 RUN");
 		add(machine1Run);

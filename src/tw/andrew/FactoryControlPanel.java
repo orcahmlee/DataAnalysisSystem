@@ -103,7 +103,6 @@ public class FactoryControlPanel extends JFrame {
 	
 	
 	
-	
 	public static void main(String[] args) {
 		new FactoryControlPanel();
 	}

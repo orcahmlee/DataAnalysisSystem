@@ -31,6 +31,7 @@ class Machines extends Thread {
 		info = new InformationOfMachine(name); // Create a new TimerTask
 		timer.schedule(info, 0, period);
 	}
+
 	
 	public String getMachineName() {
 		return name;

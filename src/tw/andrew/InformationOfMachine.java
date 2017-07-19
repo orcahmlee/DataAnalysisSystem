@@ -68,6 +68,7 @@ class InformationOfMachine extends TimerTask {
 //		} catch (SQLException e) {
 //			System.out.println(e);
 //		}
+
 		
 		
 		System.out.println(name + " => ");

@@ -34,6 +34,7 @@ class BUG_Machines extends Thread {
 		timer.schedule(info, 0, period);
 	}
 
+	
 	public String getMachineName() {
 		return name;
 	}
