@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import tw.andrew.BUG_FactoryControlPanel.MachineReRun;
-
 public class FactoryControlPanel extends JFrame {
 	Button machine1Run, machine1Stop, machine1ReRun;
 	Button machine2Run, machine2Stop, machine2ReRun;

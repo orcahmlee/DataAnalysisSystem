@@ -18,8 +18,7 @@ class Temperature {
 		}else { // Set Point - Range
 			tempTemp = tempSetPoint - tempRange;		
 		}
-		BigDecimal temp;
-		temp = new BigDecimal(tempTemp).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
+		BigDecimal temp = new BigDecimal(tempTemp).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
 		String temperature = temp.toString();
 		
 		return temperature;

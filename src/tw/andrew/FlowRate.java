@@ -18,8 +18,7 @@ class FlowRate {
 		}else { // Set Point - Range
 			tempFlow = flowSetPoint - flowRange;		
 		}
-		BigDecimal flow;
-		flow = new BigDecimal(tempFlow).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
+		BigDecimal flow = new BigDecimal(tempFlow).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
 		String flowrate = flow.toString();
 		
 		return flowrate;

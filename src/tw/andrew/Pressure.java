@@ -18,8 +18,7 @@ class Pressure {
 		}else { // Set Point - Range
 			tempPres = presSetPoint - presRange;		
 		}
-		BigDecimal pres;
-		pres = new BigDecimal(tempPres).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
+		BigDecimal pres = new BigDecimal(tempPres).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
 		String pressure = pres.toString();
 		
 		return pressure;
