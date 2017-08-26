@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="ProcessPredictSystem">
+    <wb-module deploy-name="DataAnalysisSystem">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="ProcessPredictSystem"/>
-        <property name="java-output-path" value="/ProcessPredictSystem/build/classes"/>
+        <property name="java-output-path" value="/DataAnalysisSystem/build/classes"/>
+        <property name="context-root" value="DataAnalysisSystem"/>
     </wb-module>
 </project-modules>
