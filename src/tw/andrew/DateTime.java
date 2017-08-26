@@ -28,6 +28,7 @@ class DateTime {
 		
 		return today;
 	}
+	
 	String getTime() {
 		StringBuffer sbTime = new StringBuffer();
 		sbTime = sbTime.append(HH).append(":").append(MM).append(":").append(SS);
@@ -35,4 +36,17 @@ class DateTime {
 		
 		return time;
 	}	
+	
+	String getHour() {
+		return HH;
+	}
+	
+	String getMinute() {
+		return MM;
+	}
+	
+	String getSecond() {
+		return SS;
+	}
+
 }
