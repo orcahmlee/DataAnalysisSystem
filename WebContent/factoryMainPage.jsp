@@ -1,3 +1,4 @@
+<%@page import="javax.websocket.SendResult"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -5,6 +6,9 @@
 	String lastname = (String)session.getAttribute("lastname");
 	String isApproval = (String)session.getAttribute("isApproval");
 	
+	if (firstname == null || lastname == null) {
+		response.sendRedirect("FactoryLogin");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,19 +55,38 @@
 			
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class = "nav navbar-nav" style = "font-size:16px">
-					<li>
-						<a href = "#">PAGE 1</a>
-					</li>
-					<li>
-						<a href = "#">PAGE 2</a>
-					</li>
-					<li>
-						<a href = "#">PAGE 3</a>
-					</li>
+        				<li class = "dropdown">
+        					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine 1<span class = "caret"></span></a>
+        					<ul class = "dropdown-menu">
+        						<li><a href = "#">Real-Time</a></li>
+        						<li><a href = "#">History</a></li>
+        					</ul>
+        				</li>
+        				<li class = "dropdown">
+        					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine 2<span class = "caret"></span></a>
+        					<ul class = "dropdown-menu">
+        						<li><a href = "#">Real-Time</a></li>
+        						<li><a href = "#">History</a></li>
+        					</ul>
+        				</li>
+        				<li class = "dropdown">
+        					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine 3<span class = "caret"></span></a>
+        					<ul class = "dropdown-menu">
+        						<li><a href = "#">Real-Time</a></li>
+        						<li><a href = "#">History</a></li>
+        					</ul>
+        				</li>
+        				<li class = "dropdown">
+        					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine4<span class = "caret"></span></a>
+        					<ul class = "dropdown-menu">
+        						<li><a href = "#">Real-Time</a></li>
+        						<li><a href = "#">History</a></li>
+        					</ul>
+        				</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-                    <li style = "font-size:16px"><a href = "#"><span class = "glyphicon glyphicon-user"></span> <%= firstname + " " + lastname%></a></li>
-                    <li style = "font-size:16px"><a href = "#"><span class = "glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li style = "font-size:16px"><a href = "#"><span class = "glyphicon glyphicon-user"></span><%= firstname + " " + lastname%></a></li>
+                    <li style = "font-size:16px"><a href = "#"><span class = "glyphicon glyphicon-log-out"></span>Logout</a></li>
                 </ul>
 			</div>
 		</div>
@@ -72,7 +95,7 @@
     <div class = "container-fluid">
         <div class = "row">
         		<nav class = "col-sm-1">
-        			<ul class = "nav nav-stacked" data-spy = "affix" data-offset-top="1" align = "center">
+        			<ul class = "nav nav-stacked" data-spy = "affix" data-offset-top="205" align = "center">
         				<li class = "dropdown">
         					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine1<span class = "caret"></span></a>
         					<ul class = "dropdown-menu">
@@ -187,8 +210,8 @@
  
 <script>
 	$(document).ready(function() {
-	  $("#start-datepicker").datepicker();
-	  $("#end-datepicker").datepicker();
+		$("#start-datepicker").datepicker();
+		$("#end-datepicker").datepicker();
 	});
 	$("#start-datepicker").datepicker({
 		dateFormat: "yy-mm-dd"
