@@ -7,10 +7,16 @@ package tw.andrew;
 import java.math.BigDecimal;
 
 class Pressure {
-	double presSetPoint = 1010.325; // Unit: kPa
-	double presAccuracy = 0.005;
-	double presRange = presSetPoint * (Math.random() * presAccuracy);
+	double presSetPoint; // Unit: kPa
+	double presAccuracy;
+	double presRange;
 	double tempPres;
+	
+	Pressure(double pressureSetPoint, double pressureAccuracy) {
+		this.presSetPoint = pressureSetPoint;
+		this.presAccuracy = pressureAccuracy;
+		presRange = presSetPoint * (Math.random() * presAccuracy);
+	}
 	
 	String getPressure() {
 		if ( (int)(Math.random()*2) == 1) { // Set Point + Range

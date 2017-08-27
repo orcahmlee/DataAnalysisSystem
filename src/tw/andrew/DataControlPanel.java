@@ -8,17 +8,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-public class FactoryControlPanel extends JFrame {
+public class DataControlPanel extends JFrame {
 	Button machine1Run, machine1Stop, machine1ReRun;
 	Button machine2Run, machine2Stop, machine2ReRun;
 	Button machine3Run, machine3Stop, machine3ReRun;
 	Button machine4Run, machine4Stop, machine4ReRun;
 	TextField textM1, textM2, textM3, textM4;
 	
-	public FactoryControlPanel() {
-		super("Factory Control Panel");
+	public DataControlPanel() {
+		super("Data Control Panel");
 		
-		Machines m1 = new Machines("M1", 5000); // 
+		Machines m1 = new Machines("M1", 200.0, 0.005, 101.325, 0.005, 100.0, 0.005, 5000); // 
 		machine1Run = new Button("M1 RUN");
 		textM1 = new TextField(50);
 		machine1ReRun = new Button("M1 RERUN");
@@ -32,7 +32,7 @@ public class FactoryControlPanel extends JFrame {
 		add(machine1ReRun);
 		add(machine1Stop);
 
-		Machines m2 = new Machines("M2", 5000); // 
+		Machines m2 = new Machines("M2", 200.0, 0.01, 101.325, 0.01, 100.0, 0.01, 5000); // 
 		machine2Run = new Button("M2 RUN");
 		textM2 = new TextField(50);
 		machine2ReRun = new Button("M2 RERUN");
@@ -46,7 +46,7 @@ public class FactoryControlPanel extends JFrame {
 		add(machine2ReRun);
 		add(machine2Stop);
 
-		Machines m3 = new Machines("M3", 5000); // 
+		Machines m3 = new Machines("M3", 200.0, 0.05, 101.325, 0.05, 100.0, 0.05, 5000); // 
 		machine3Run = new Button("M3 RUN");
 		textM3 = new TextField(50);
 		machine3ReRun = new Button("M3 RERUN");
@@ -60,7 +60,7 @@ public class FactoryControlPanel extends JFrame {
 		add(machine3ReRun);
 		add(machine3Stop);
 
-		Machines m4 = new Machines("M4", 5000); // 
+		Machines m4 = new Machines("M4", 200.0, 0.1, 101.325, 0.1, 100.0, 0.1, 5000); // 
 		machine4Run = new Button("M4 RUN");
 		textM4 = new TextField(50);
 		machine4ReRun = new Button("M4 RERUN");
@@ -77,7 +77,7 @@ public class FactoryControlPanel extends JFrame {
 		setLayout(new FlowLayout()); // *** Layout Manager
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-		setSize(800, 600);
+		setSize(800, 300);
 	}
 		
 	class MachineRun implements ActionListener {
@@ -123,6 +123,6 @@ public class FactoryControlPanel extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new FactoryControlPanel();
+		new DataControlPanel();
 	}
 }

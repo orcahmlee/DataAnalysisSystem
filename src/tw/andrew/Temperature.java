@@ -7,10 +7,16 @@ package tw.andrew;
 import java.math.BigDecimal;
 
 class Temperature {
-	double tempSetPoint = 200.0; // Unit: degree C
-	double tempAccuracy = 0.005;
-	double tempRange = tempSetPoint * (Math.random() * tempAccuracy);
+	double tempSetPoint; // Unit: degree C
+	double tempAccuracy;
+	double tempRange;
 	double tempTemp;
+	
+	Temperature(double temperatureSetPoint, double temperatureAccuracy) {
+		this.tempSetPoint = temperatureSetPoint;
+		this.tempAccuracy = temperatureAccuracy;
+		tempRange = tempSetPoint * (Math.random() * tempAccuracy);
+	}
 	
 	String getTemperature() {
 		if ( (int)(Math.random()*2) == 1) { // Set Point + Range

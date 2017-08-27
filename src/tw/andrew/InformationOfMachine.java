@@ -15,8 +15,24 @@ import java.util.TimerTask;
 
 class InformationOfMachine extends TimerTask {
 	private String name;
-	InformationOfMachine(String name) {
-		this.name = name; // The name of the machine
+	private double temperatureSetPoint, temperatureAccuracy;
+	private double pressureSetPoint, pressureAccuracy;
+	private double flowRateSetPoint, flowRateAccuracy;
+	
+	InformationOfMachine(String name, 
+			double temperatureSetPoint, 
+			double temperatureAccuracy, 
+			double pressureSetPoint, 
+			double pressureAccuracy, 
+			double flowRateSetPoint, 
+			double flowRateAccuracy) {
+		this.name = name; // The name of this machine
+		this.temperatureSetPoint = temperatureSetPoint; // The temperatureSetPoint of this machine
+		this.temperatureAccuracy = temperatureAccuracy; // The temperatureAccuracy of this machine
+		this.pressureSetPoint = pressureSetPoint; // The pressureSetPoint of this machine
+		this.pressureAccuracy = pressureAccuracy; // The pressureAccuracy of this machine
+		this.flowRateSetPoint = flowRateSetPoint; // The flowRateSetPoint of this machine
+		this.flowRateAccuracy = flowRateAccuracy; // The flowRateAccuracy of this machine
 	}
 	@Override
 	public void run() {
@@ -29,15 +45,15 @@ class InformationOfMachine extends TimerTask {
 		String second = DateTime.getSecond();
 		
 		// The temperature of machine
-		Temperature temp = new Temperature();
+		Temperature temp = new Temperature(temperatureSetPoint, temperatureAccuracy);
 		String temperature = temp.getTemperature();
 		
 		// The pressure of machine
-		Pressure pres = new Pressure();
+		Pressure pres = new Pressure(pressureSetPoint, pressureAccuracy);
 		String pressure = pres.getPressure();
 		
 		// The flow rate of machine
-		FlowRate flow = new FlowRate();
+		FlowRate flow = new FlowRate(flowRateSetPoint, flowRateAccuracy);
 		String flowrate = flow.getFlowRate();
 		
 		// Get the connector drive of MySQL

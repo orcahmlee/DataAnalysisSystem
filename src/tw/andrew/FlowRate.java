@@ -7,10 +7,16 @@ package tw.andrew;
 import java.math.BigDecimal;
 
 class FlowRate {
-	double flowSetPoint = 100.0; // Unit: L/min
-	double flowAccuracy = 0.005;
-	double flowRange = flowSetPoint * (Math.random() * flowAccuracy);
+	double flowSetPoint; // Unit: L/min
+	double flowAccuracy;
+	double flowRange;
 	double tempFlow;
+	
+	FlowRate(double flowRateSetPoint, double flowRateAccuracy) {
+		this.flowSetPoint = flowRateSetPoint;
+		this.flowAccuracy = flowRateAccuracy;
+		flowRange = flowSetPoint * (Math.random() * flowAccuracy);
+	}
 	
 	String getFlowRate() {
 		if ( (int)(Math.random()*2) == 1) { // Set Point + Range
