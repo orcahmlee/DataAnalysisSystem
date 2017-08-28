@@ -21,6 +21,9 @@ class DateTime {
 	int ss = now.get(Calendar.SECOND);
 	String SS = String.format("%02d", ss);
 	
+	long t = now.getTimeInMillis();
+	String timestamp = Long.toString(t);
+	
 	String getToday() {
 		StringBuffer sbToday = new StringBuffer();
 		sbToday = sbToday.append(YYYY).append("-").append(MO).append("-").append(DD);
@@ -47,6 +50,10 @@ class DateTime {
 	
 	String getSecond() {
 		return SS;
+	}
+	
+	String getTimestamp() {
+		return timestamp;
 	}
 
 }

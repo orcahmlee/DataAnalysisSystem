@@ -43,6 +43,7 @@ class InformationOfMachine extends TimerTask {
 		String hour = DateTime.getHour();
 		String minute = DateTime.getMinute();
 		String second = DateTime.getSecond();
+		String timestamp = DateTime.getTimestamp();
 		
 		// The temperature of machine
 		Temperature temp = new Temperature(temperatureSetPoint, temperatureAccuracy);
@@ -73,7 +74,7 @@ class InformationOfMachine extends TimerTask {
 				DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/andrew", prop);)
 		{
 			String sql = 
-					"INSERT INTO factory (machine, date, time, hour, minute, second, temperature, pressure, flowrate) values (?,?,?,?,?,?,?,?,?)";
+					"INSERT INTO factory (machine, date, time, hour, minute, second, timestamp, temperature, pressure, flowrate) values (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, today);
@@ -81,9 +82,10 @@ class InformationOfMachine extends TimerTask {
 			pstmt.setString(4, hour);
 			pstmt.setString(5, minute);
 			pstmt.setString(6, second);
-			pstmt.setString(7, temperature);
-			pstmt.setString(8, pressure);
-			pstmt.setString(9, flowrate);
+			pstmt.setString(7, timestamp);
+			pstmt.setString(8, temperature);
+			pstmt.setString(9, pressure);
+			pstmt.setString(10, flowrate);
 			pstmt.addBatch();
 			pstmt.executeBatch();
 			System.out.println(name + " : Sent, OK!");			
