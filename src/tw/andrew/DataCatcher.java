@@ -49,6 +49,7 @@ public class DataCatcher {
 				String machine = rs.getString("machine");
 				String date = rs.getString("date");
 				String time = rs.getString("time");
+				String timestamp = rs.getString("timestamp");
 				String temperature = rs.getString("temperature");
 				String pressure = rs.getString("pressure");
 				String flowrate = rs.getString("flowrate");
@@ -58,6 +59,7 @@ public class DataCatcher {
 				dataMap.put("machine", machine);
 				dataMap.put("date", date);
 				dataMap.put("time", time);
+				dataMap.put("timestamp", timestamp);
 				dataMap.put("temperature", temperature);
 				dataMap.put("pressure", pressure);
 				dataMap.put("flowrate", flowrate);

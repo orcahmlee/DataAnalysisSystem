@@ -25,7 +25,8 @@
 	<!-- JQuery UI CSS-->
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
 	<!-- Flot -->
-	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.js"></script>	
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.time.js"></script>	
 		
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -168,16 +169,58 @@ $(function() {
 });
 
 <%
-	String data2 = (String)session.getAttribute("data2");
-	if(data2 == null) {
-		data2 = "[0,0]";
-	}
+//	String data2 = (String)session.getAttribute("data2");
+//	if(data2 == null) {
+//		data2 = "[0,0]";
+//	}
+
 %>
 $(function() {
-	var data = <%= data2 %>;
+	var data = 	data2 = [
+		[1503932351093,200.00],
+		[1503932356097,200.40],
+		[1503932361101,199.00],
+		[1503932366103,201.00],
+		[1503932371107,199.80],
+		[1503932376108,199.80],
+		[1503932381110,199.10],
+		[1503932386113,199.20],
+		[1503932391114,200.60],
+		[1503932396118,199.00],
+		[1503932401122,199.50],
+		[1503932406122,199.20],
+		[1503932411127,199.70],
+		[1503932416128,200.10],
+		[1503932421134,200.50],
+		[1503932426138,200.10],
+		[1503932431139,199.40],
+		[1503932436142,199.70],
+		[1503932441143,199.00],
+		[1503932446144,199.80],
+		[1503932451149,199.00],
+		[1503932456150,199.80],
+		[1503932461154,200.30],
+		[1503932466156,201.00],
+		[1503932471156,199.20],
+		[1503932476160,199.10],
+		[1503932481164,199.60],
+		[1503932486168,199.20],
+		[1503932491172,200.30],
+		[1503932496176,200.70],
+		[1503932501180,199.90],
+		[1503932506184,199.70],
+		[1503932511188,199.70],
+		[1503932516192,200.30],
+		[1503932521196,200.70],
+		[1503932526201,199.30],
+		[1503932531203,199.50],
+		[1503932536203,200.20],
+		[1503932541208,199.70]
+	];
 	
-	$.plot($("#placeholder2"),[ data ]			
-	);
+	$.plot($("#placeholder2"),[ data ], {
+		xaxis: {mode: "time"}	
+	});
 	
 	window.onresize = function() {
 		$.plot($("#placeholder2"),[ data ]

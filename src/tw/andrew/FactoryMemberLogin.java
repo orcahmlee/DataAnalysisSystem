@@ -51,7 +51,6 @@ public class FactoryMemberLogin extends HttpServlet {
 				session = request.getSession();
 				session.setAttribute("login", "failure");
 				session.setMaxInactiveInterval(60);
-				//TODO session 時效好像無法在 60 秒內消失？
 				response.sendRedirect("FactoryLogin");
 			}
 		} catch (ClassNotFoundException e) {
