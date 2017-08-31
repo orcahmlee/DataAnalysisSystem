@@ -9,7 +9,7 @@ class DateTime {
 	Calendar now = Calendar.getInstance();
 	int yyyy = now.get(Calendar.YEAR);
 	String YYYY = Integer.toString(yyyy);
-	int mo = now.get(Calendar.MONTH);
+	int mo = now.get(Calendar.MONTH) + 1;
 	String MO = String.format("%02d", mo);
 	int dd = now.get(Calendar.DAY_OF_MONTH);
 	String DD = String.format("%02d", dd);
