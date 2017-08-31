@@ -37,7 +37,7 @@ public class RealTimeFlotData {
 				DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/andrew", prop))
 		{
 			// MySQL query: select the last N data
-			String sql = "SELECT * FROM " +
+			String sql = "SELECT timestamp, temperature, pressure, flowrate FROM " +
 							"(SELECT * FROM factory WHERE machine = '" + this.equipment + "' ORDER BY id DESC LIMIT "+ this.numberOfData+") " +
 					     "sub ORDER BY id ASC";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
