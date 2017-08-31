@@ -37,13 +37,14 @@ class InformationOfMachine extends TimerTask {
 	@Override
 	public void run() {
 		// Current date and time
-		DateTime DateTime = new DateTime();
-		String today = DateTime.getToday();
-		String time = DateTime.getTime();
-		String hour = DateTime.getHour();
-		String minute = DateTime.getMinute();
-		String second = DateTime.getSecond();
-		String timestamp = DateTime.getTimestamp();
+		DateTime dateTime = new DateTime();
+		String todayTime = dateTime.getTodayTime();
+		String today = dateTime.getToday();
+		String time = dateTime.getTime();
+		String hour = dateTime.getHour();
+		String minute = dateTime.getMinute();
+		String second = dateTime.getSecond();
+		String timestamp = dateTime.getTimestamp();
 		
 		// The temperature of machine
 		Temperature temp = new Temperature(temperatureSetPoint, temperatureAccuracy);
@@ -74,18 +75,19 @@ class InformationOfMachine extends TimerTask {
 				DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/andrew", prop);)
 		{
 			String sql = 
-					"INSERT INTO factory (machine, date, time, hour, minute, second, timestamp, temperature, pressure, flowrate) values (?,?,?,?,?,?,?,?,?,?)";
+					"INSERT INTO factory (machine, datetime, date, time, hour, minute, second, timestamp, temperature, pressure, flowrate) values (?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
-			pstmt.setString(2, today);
-			pstmt.setString(3, time);
-			pstmt.setString(4, hour);
-			pstmt.setString(5, minute);
-			pstmt.setString(6, second);
-			pstmt.setString(7, timestamp);
-			pstmt.setString(8, temperature);
-			pstmt.setString(9, pressure);
-			pstmt.setString(10, flowrate);
+			pstmt.setString(2, todayTime);
+			pstmt.setString(3, today);
+			pstmt.setString(4, time);
+			pstmt.setString(5, hour);
+			pstmt.setString(6, minute);
+			pstmt.setString(7, second);
+			pstmt.setString(8, timestamp);
+			pstmt.setString(9, temperature);
+			pstmt.setString(10, pressure);
+			pstmt.setString(11, flowrate);
 			pstmt.addBatch();
 			pstmt.executeBatch();
 			System.out.println(name + " : Sent, OK!");			

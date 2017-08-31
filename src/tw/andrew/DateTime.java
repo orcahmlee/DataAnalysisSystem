@@ -38,7 +38,15 @@ class DateTime {
 		String time = sbTime.toString();
 		
 		return time;
-	}	
+	}
+	
+	String getTodayTime() {
+		StringBuffer sbTodayTime = new StringBuffer();
+		sbTodayTime = sbTodayTime.append(YYYY).append("-").append(MO).append("-").append(DD).append(",").append(HH).append(":").append(MM).append(":").append(SS);
+		String todayTime = sbTodayTime.toString();
+		
+		return todayTime;
+	}
 	
 	String getHour() {
 		return HH;
