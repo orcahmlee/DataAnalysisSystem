@@ -44,8 +44,8 @@ public class HistoryFlotData {
 			String sql = 
 					"SELECT * FROM factory " +
 					"WHERE machine = '" + this.equipment + "' and " + 
-					"date BETWEEN '" + this.startDate + "' AND '" + this.endDate + "' and " +
-					"time BETWEEN '" + this.startHour + ":" + this.startMinute + ":00'" + " AND '" + this.endHour + ":" + this.endMinute + ":00'"; 
+					"datetime BETWEEN '" + this.startDate + "," + this.startHour + ":" + this.startMinute + ":00' " +
+							   "AND '" + this.endDate + "," + this.endHour + ":" + this.endMinute + ":00' ";
 		    
 		    PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
