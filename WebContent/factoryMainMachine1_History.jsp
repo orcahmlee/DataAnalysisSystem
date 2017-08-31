@@ -10,6 +10,11 @@
 		response.sendRedirect("FactoryLogin");
 	}
 %>
+<%
+	String temperatureFlotData = (String)session.getAttribute("temperatureFlotData");
+	String pressureFlotData = (String)session.getAttribute("pressureFlotData");
+	String flowRateFlotData = (String)session.getAttribute("flowRateFlotData");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -25,7 +30,10 @@
 	<!-- JQuery UI CSS-->
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
 	<!-- Flot -->
-	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.js"></script>	
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.time.js"></script>	
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.axislabels.js"></script>	
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.tooltip.js"></script>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,145 +102,263 @@
 	</nav>
 
     <div class = "container-fluid">
-      	<div class = "row">
-        		<div class = "col-sm-2" align = "center">
-        			<label style = "font-size:16px">START TIME</label>&nbsp;
-        		</div>
-        		<div class = "col-sm-3" align = "left">
-        			<label>DATE:</label>&nbsp;
-        			<input type = "text" size = "12" id = "start-datepicker">
-        		</div>
-        		<div class = "col-sm-3" align = "left">
-        			<div class = "form-group">
-	    				<label>HOUR:</label>&nbsp; 		    					
-	    				<select class = "form-control" id = "start-slc-hour"></select>
-	    			</div>
-     		</div>
-        		<div class = "col-sm-3" align = "left">	
-    		    		<div class = "form-group">
-    		    			<label>MINUTE:</label>&nbsp; 		    					
-    		    			<select class = "form-control" id = "start-slc-minute"></select>
-    		    		</div>
-        		</div>
-        		<div class = "col-sm-1"></div>
-        	</div>
-        			
-        	<hr>
-        			
-        	<div class = "row">
-        		<div class = "col-sm-2" align = "center">
-        			<label style = "font-size:16px">END TIME</label>&nbsp;
-        		</div>
-        		<div class = "col-sm-3" align = "left">
-        			<label>DATE:</label>&nbsp;
-        			<input type = "text" size = "12" id = "end-datepicker">
-        		</div>
-        		<div class = "col-sm-3" align = "left">
-        			<div class = "form-group">
-	    				<label>HOUR:</label>&nbsp; 		    					
-	    				<select class = "form-control" id = "end-slc-hour"></select>
-	    			</div>
-        		</div>
-        		<div class = "col-sm-3" align = "left">	
-    		   		<div class = "form-group">
-    		    			<label>MINUTE:</label>&nbsp; 		    					
-    		    			<select class = "form-control" id = "end-slc-minute"></select>
-    		    		</div>
-        		</div>
-        		<div class = "col-sm-1" align = "center">
-        			<button type = "button" class = "btn btn-default" style = "font-size:18px" onclick = "getInterval()"><i class="glyphicon glyphicon-search"></i></button>        					
-        		</div>		
-        	</div>
-        			
+	    <form method = "post" action = "FactoryMainMachine1_History">
+	      	<div class = "row">      	
+	        		<div class = "col-sm-2" align = "center">
+	        			<label style = "font-size:16px">START TIME</label>&nbsp;
+	        		</div>
+	        		<div class = "col-sm-3" align = "left">
+	        			<label>DATE:</label>&nbsp;
+	        			<input type = "text" size = "12" id = "start-datepicker" name = startDate>
+	        		</div>
+	        		<div class = "col-sm-3" align = "left">
+	        			<div class = "form-group">
+		    				<label>HOUR:</label>&nbsp; 		    					
+		    				<select class = "form-control" id = "start-slc-hour" name = startHour></select>
+		    			</div>
+	     		</div>
+	        		<div class = "col-sm-3" align = "left">	
+	    		    		<div class = "form-group">
+	    		    			<label>MINUTE:</label>&nbsp; 		    					
+	    		    			<select class = "form-control" id = "start-slc-minute" name = startMinute></select>
+	    		    		</div>
+	        		</div>
+	        		<div class = "col-sm-1"></div>
+	        	</div>
+	        			
+	        	<hr>
+	        			
+	        	<div class = "row">
+	        		<div class = "col-sm-2" align = "center">
+	        			<label style = "font-size:16px">END TIME</label>&nbsp;
+	        		</div>
+	        		<div class = "col-sm-3" align = "left">
+	        			<label>DATE:</label>&nbsp;
+	        			<input type = "text" size = "12" id = "end-datepicker" name = "endDate">
+	        		</div>
+	        		<div class = "col-sm-3" align = "left">
+	        			<div class = "form-group">
+		    				<label>HOUR:</label>&nbsp; 		    					
+		    				<select class = "form-control" id = "end-slc-hour" name = "endHour"></select>
+		    			</div>
+	        		</div>
+	        		<div class = "col-sm-3" align = "left">	
+	    		   		<div class = "form-group">
+	    		    			<label>MINUTE:</label>&nbsp;
+	    		    			<select class = "form-control" id = "end-slc-minute" name = "endMinute"></select>
+	    		    		</div>
+	        		</div>
+	        		<div class = "col-sm-1" align = "center">
+	        			<input type = "submit" class = "btn btn-default" style = "font-size:16px" value = "SEARCH"></input>        					
+	        		</div>		
+	        	</div>
+		</form>    
+	    			
     		<!-- DEBUG AREA -->
     		<hr>
     		<div class = "col-sm-12" align = "center">
-    			<span align = "center" id = "debug">Time</span>
+    			<span align = "center" id = "debug">DEBUG</span>
     		</div>        				
     		<hr>
     		<!-- DEBUG AREA -->
         				
         	<div class = "row">	
         		<div class = "col-sm-6" align = "center">
-        			<img src = "pics/1.jpg" width = "100%"/>
+        			<hr>
+        			<p>PDF</p>
+        			<div id = "placeholder1" style = "width:100%; height:350px"></div>
+        		</div>        	
+        		<div class = "col-sm-6" align = "center">
+        			<hr>
+        			<p>PDF</p>
+        			<div id = "placeholder2" style = "width:100%; height:350px"></div>
+        		</div>        		
+        		<div class = "col-sm-6" align = "center">
+        			<hr>
+        			<p>Pressure</p>
+        			<div id = "placeholder3" style = "width:100%; height:350px"></div>
+        		</div>        		
+        		<div class = "col-sm-6" align = "center">
+        			<hr>
+        			<p>PDF</p>
+        			<div id = "placeholder4" style = "width:100%; height:350px"></div>
         		</div>
         		<div class = "col-sm-6" align = "center">
-        			<img src = "pics/2.jpg" width = "100%"/>
-        		</div>
-        		<hr>
+        			<hr>
+        			<p>Flow Rate</p>
+        			<div id = "placeholder5" style = "width:100%; height:350px"></div>
+        		</div>        		
         		<div class = "col-sm-6" align = "center">
-        			<img src = "pics/3.jpg" width = "80%"/>
-        		</div>
-        		<div class = "col-sm-6" align = "center">
-        			<img src = "pics/4.jpg" width = "80%"/>
-        		</div>
+        			<hr>
+        			<p>PDF</p>
+        			<div id = "placeholder6" style = "width:100%; height:350px"></div>
+        		</div>        	
         	</div>
 	</div>
 
  
 <script>
-	$(document).ready(function() {
-		$("#start-datepicker").datepicker();
-		$("#end-datepicker").datepicker();
-	});
-	$("#start-datepicker").datepicker({
-		dateFormat: "yy-mm-dd"
-	});
-	$("#end-datepicker").datepicker({
-		dateFormat: "yy-mm-dd"
-	});
 
-	$(document).ready(function (){
-		var left = '<option>';
-		var right = '</option>';
-		for (var i = 0; i < 25; i++) {
-			i = (i < 10) ? (i = "0" + i) : (i);
-			$("#start-slc-hour").append(left + i + right);
-			$("#end-slc-hour").append(left + i + right);
-		}
-	});
-	
-	$(document).ready(function (){
-		var left = '<option>';
-		var right = '</option>';
-		for (var i = 0; i < 60; i++) {
-			i = (i < 10) ? (i = "0" + i) : (i);
-			$("#start-slc-minute").append(left + i + right);
-			$("#end-slc-minute").append(left + i + right);
-		}
-	});
-  	
-	function getInterval() {
-		var start = $("#start-datepicker").datepicker("getDate");		
- 		var startYY = start.getFullYear();
-		var startMM = start.getMonth() + 1;
- 		startMM = (startMM < 10) ? (startMM = "0" + startMM) : (startMM);
-		var startDD = start.getDate();
-		startDD = (startDD < 10) ? (startDD = "0" + startDD) : (startDD);
-		
-		var startDate = startYY + "-" + startMM + "-" + startDD;
-		var startHour = $("#start-slc-hour").val();	
-		var startMinute = $("#start-slc-minute").val();
-		
-		var end = $("#end-datepicker").datepicker("getDate");		
- 		var endYY = end.getFullYear();
-		var endMM = end.getMonth() + 1;
- 		endMM = (endMM < 10) ? (endMM = "0" + endMM) : (endMM);
-		var endDD = end.getDate();
-		endDD = (endDD < 10) ? (endDD = "0" + endDD) : (endDD);		
-		
-		var endDate = endYY + "-" + endMM + "-" + endDD;
-		var endHour = $("#start-slc-hour").val();
-		var endMinute = $("#start-slc-minute").val();	
-		
-		if (end.getTime() < start.getTime()){
-			alert("請確認起迄日期");
-			return;
-		}
-		
-		$("#debug").html(startDate + ", "+  endHour + ":" + endMinute + " ---> " + endDate + ", "+  endHour + ":" + endMinute);
+$(function() {
+	$("#start-datepicker").datepicker();
+	$("#end-datepicker").datepicker();
+});
+$("#start-datepicker").datepicker({
+	dateFormat: "yy-mm-dd"
+});
+$("#end-datepicker").datepicker({
+	dateFormat: "yy-mm-dd"
+});
+
+$(function() {
+	var left = '<option>';
+	var right = '</option>';
+	for (var i = 0; i < 25; i++) {
+		i = (i < 10) ? (i = "0" + i) : (i);
+		$("#start-slc-hour").append(left + i + right);
+		$("#end-slc-hour").append(left + i + right);
 	}
+});
+
+$(function() {
+	var left = '<option>';
+	var right = '</option>';
+	for (var i = 0; i < 60; i++) {
+		i = (i < 10) ? (i = "0" + i) : (i);
+		$("#start-slc-minute").append(left + i + right);
+		$("#end-slc-minute").append(left + i + right);
+	}
+});
+ 	
+function plotTemperature() {
+	var data = <%= temperatureFlotData %>;
 	
+	$.plot($("#placeholder1"),[ data ], {
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: false}
+		},
+		colors: ["#ff0000"],
+		xaxis: {
+			mode: "time",
+			timezone: "browser",
+			axisLabel: "Time",
+			axisLabelPadding: 20,
+			axisLabelUseCanvas: true,
+			axisLabelFontSizePixels: 16
+		},
+		yaxis: {
+			axisLabel: "Temp. (degree C)",
+			axisLabelUseCanvas: true,
+			axisLabelPadding: 10,
+			axisLabelFontSizePixels: 16
+
+		},
+		grid: {
+            hoverable: true,
+            clickable: true
+        },
+        tooltip: {
+        		show: true,
+        		content: "%x | %y" 
+        }
+	});
+}
+
+function plotPressure() {
+	var data = <%= pressureFlotData %>;
+	
+	$.plot($("#placeholder3"),[ data ], {
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: false}
+		},
+		colors: ["#2a9e3a"],
+		xaxis: {
+			mode: "time",
+			timezone: "browser",
+			axisLabel: "Time",
+			axisLabelPadding: 20,
+			axisLabelUseCanvas: true,
+			axisLabelFontSizePixels: 16
+		},
+		yaxis: {
+			axisLabel: "Pres. (kPa)",
+			axisLabelUseCanvas: true,
+			axisLabelPadding: 10,
+			axisLabelFontSizePixels: 16
+
+		},
+		grid: {
+            hoverable: true,
+            clickable: true
+        },
+        tooltip: {
+    			show: true,
+    			content: "%x | %y" 
+    		}
+	});
+}
+
+function plotFlowRate() {
+	var data = <%= flowRateFlotData %>;
+	
+	$.plot($("#placeholder5"),[ data ], {
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: false}
+		},
+		colors: ["#2269cc"],
+		xaxis: {
+			mode: "time",
+			timezone: "browser",
+			axisLabel: "Time",
+			axisLabelPadding: 20,
+			axisLabelUseCanvas: true,
+			axisLabelFontSizePixels: 16
+		},
+		yaxis: {
+			axisLabel: "Flow Rate (L/min)",
+			axisLabelUseCanvas: true,
+			axisLabelPadding: 10,
+			axisLabelFontSizePixels: 16
+
+		},
+		grid: {
+            hoverable: true,
+            clickable: true
+        },
+        tooltip: {
+    			show: true,
+    			content: "%x | %y" 
+	    }
+	});
+}
+
+$(function() {
+	plotTemperature();
+	plotPressure();
+	plotFlowRate();
+});
+
+
+$(function() {
+	window.onresize = function() {
+		plotTemperature();
+		plotPressure();
+		plotFlowRate();
+	}	
+});
+
 </script>
 
 

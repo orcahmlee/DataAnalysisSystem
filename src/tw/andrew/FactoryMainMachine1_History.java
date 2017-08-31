@@ -26,7 +26,27 @@ public class FactoryMainMachine1_History extends HttpServlet {
 		String lastname = (String)session.getAttribute("lastname");
 		String isApproval = (String)session.getAttribute("isApproval");
 		
+		// MODEL
+		// Get the parameters from the request.
+		String equipment = "M1";
+		String startDate = (String)request.getParameter("startDate");
+		String endDate = (String)request.getParameter("endDate");
+		String startHour = (String)request.getParameter("startHour");
+		String endHour = (String)request.getParameter("endHour");
+		String startMinute = (String)request.getParameter("startMinute");
+		String endMinute = (String)request.getParameter("endMinute");
+		// If the parameters are not null, creating an object to retrieve the data and set the data to the session.
+		if (startDate != null && endDate != null && startHour != null && endHour != null && startMinute != null && endMinute != null) {
+			HistoryFlotData hfd = new HistoryFlotData(equipment, startDate, endDate, startHour, endHour, startMinute, endMinute);
+			String temperatureFlotData = hfd.getTemperatureFlotData();
+			String pressureFlotData = hfd.getPressureFlotData();
+			String flowRateFlotData = hfd.getFlowRateFlotData();
+			session.setAttribute("temperatureFlotData", temperatureFlotData);
+			session.setAttribute("pressureFlotData", pressureFlotData);
+			session.setAttribute("flowRateFlotData", flowRateFlotData);
+		}
 		// VIEW
+		// Send the request, response, and session(including the data) to the VIEW.
 		RequestDispatcher rd = request.getRequestDispatcher("factoryMainMachine1_History.jsp");
 		rd.forward(request, response);
 	}
