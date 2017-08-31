@@ -26,15 +26,9 @@ public class FactoryMainMachine1_RealTime extends HttpServlet {
 		String lastname = (String)session.getAttribute("lastname");
 		String isApproval = (String)session.getAttribute("isApproval");
 		
-		
-		String data2 = "[[21:49:10,2], [21:49:20,6], [21:49:30,9], [21:49:40,12], [21:49:50,5], [21:50:00,8]]";
-		session.setAttribute("data2", data2);
-		
-		
 		// VIEW
 		RequestDispatcher rd = request.getRequestDispatcher("factoryMainMachine_RealTime.jsp");
 		rd.forward(request, response);
-
 	
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -27,6 +27,8 @@
 	<!-- Flot -->
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.js"></script>
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.time.js"></script>	
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.axislabels.js"></script>	
+	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.tooltip.js"></script>
 		
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,38 +96,38 @@
 		</div>
 	</nav>
 
-    <div class = "container">        				
+    <div class = "container-fluid">        				
         	<div class = "row">
         		<div class = "col-sm-12" align = "center">Machine 1</div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>Temperature</p>
-        			<div id = "placeholder1" style = "width:100%; height:300px"></div>
+        			<div id = "temperature" style = "width:100%; height:350px"></div>
         		</div>        	
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>PDF</p>
-        			<div id = "placeholder2" style = "width:100%; height:300px"></div>
+        			<div id = "placeholder2" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>Pressure</p>
-        			<div id = "placeholder3" style = "width:100%; height:300px"></div>
+        			<div id = "pressure" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>PDF</p>
-        			<div id = "placeholder4" style = "width:100%; height:300px"></div>
+        			<div id = "placeholder4" style = "width:100%; height:350px"></div>
         		</div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>Flow Rate</p>
-        			<div id = "placeholder5" style = "width:100%; height:300px"></div>
+        			<div id = "flowrate" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>PDF</p>
-        			<div id = "placeholder6" style = "width:100%; height:300px"></div>
+        			<div id = "placeholder6" style = "width:100%; height:350px"></div>
         		</div>        	
         	</div>
 	</div>
@@ -133,102 +135,185 @@
 </body>
 
 <script>
-$(function () {
-    var d1 = [];
-    for (var i = 0; i < 14; i += 0.5)
-        d1.push([i, Math.sin(i)]);
- 
-    var d2 = [[0, 3], [4, 8], [8, 5], [9, 13]];
- 
-    // a null signifies separate line segments
-    var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
-    
-    $.plot($("#placeholder3"), [ d1, d2, d3 ]);
-    $.plot($("#placeholder4"), [ d1, d2, d3 ]);
-    $.plot($("#placeholder5"), [ d1, d2, d3 ]);
-    $.plot($("#placeholder6"), [ d1, d2, d3 ]);
 
-    window.onresize = function() {
-        $.plot($("#placeholder3"), [ d1, d2, d3 ]);
-        $.plot($("#placeholder4"), [ d1, d2, d3 ]);
-        $.plot($("#placeholder5"), [ d1, d2, d3 ]);
-        $.plot($("#placeholder6"), [ d1, d2, d3 ]);
-    }
-});
+// The function that plot the chart by FLOT and AJAX
+function plotTemperature() {
+	$.post(
+			"M1TemperatureRealTimeData", 						// URL
+			function(data){										// A function to run if the request succeeds. 
+				var obj = JSON.parse(data);						// Parse the string that the resulting data from the request to a JSON object.
+				var dataset = obj.data;							// Get the "value" which "key" eauals "data"; It returns a array "dataset".
+				var flotdata = [];								// Create an array which can recieve the value
+				for (var i = 0; i < dataset.length; i++) {		
+					if (i % 2 == 0){								
+						var timeValue = [];
+						timeValue.push(dataset[i]);
+						timeValue.push(dataset[i + 1]);
+						flotdata.push(timeValue);				// The structure of flotdata is: [ [k,v], [k,v] ,[k, v],[k, v] ].
+					}
+				}
+				$.plot($("#temperature"),[ flotdata ], {			// Plot the chart by FLOT
+				    series: {
+					    lines: {
+							show: true,
+							align: "center"
+						},
+						points: {show: false}
+					},
+					colors: ["#ff0000"],
+					xaxis: {
+						mode: "time",
+						timezone: "browser",
+						axisLabel: "Time",
+						axisLabelPadding: 20,
+						axisLabelUseCanvas: true,
+						axisLabelFontSizePixels: 16
+					},
+					yaxis: {
+						axisLabel: "Temp. (degree C)",
+						axisLabelUseCanvas: true,
+						axisLabelPadding: 10,
+						axisLabelFontSizePixels: 16
 
-$(function() {
-	var data = [[0,2], [3,6], [6,9], [9,12], [12,5], [15,8]];
-	
-	$.plot($("#placeholder1"),[ data ]			
+					},
+					grid: {
+			            hoverable: true,
+			            clickable: true
+			        },
+			        tooltip: {
+			        		show: true,
+			        		content: "%x | %y" 
+			        }
+				});
+			}
 	);
-	
-	window.onresize = function() {
-		$.plot($("#placeholder1"),[ data ]			
-		);		
-	}
+}
+
+//The function that plot the chart by FLOT and AJAX
+function plotPressure() {
+	$.post(
+			"M1PressureRealTimeData", 							// URL
+			function(data){										// A function to run if the request succeeds. 
+				var obj = JSON.parse(data);						// Parse the string that the resulting data from the request to a JSON object.
+				var dataset = obj.data;							// Get the "value" which "key" eauals "data"; It returns a array "dataset".
+				var flotdata = [];								// Create an array which can recieve the value
+				for (var i = 0; i < dataset.length; i++) {		
+					if (i % 2 == 0){								
+						var timeValue = [];
+						timeValue.push(dataset[i]);
+						timeValue.push(dataset[i + 1]);
+						flotdata.push(timeValue);				// The structure of flotdata is: [ [k,v], [k,v] ,[k, v],[k, v] ].
+					}
+				}
+				$.plot($("#pressure"),[ flotdata ], {			// Plot the chart by FLOT
+				    series: {
+					    lines: {
+							show: true,
+							align: "center"
+						},
+						points: {show: false}
+					},
+					colors: ["#2a9e3a"],
+					xaxis: {
+						mode: "time",
+						timezone: "browser",
+						axisLabel: "Time",
+						axisLabelPadding: 20,
+						axisLabelUseCanvas: true,
+						axisLabelFontSizePixels: 16
+					},
+					yaxis: {
+						axisLabel: "Pres. (kPa)",
+						axisLabelUseCanvas: true,
+						axisLabelPadding: 10,
+						axisLabelFontSizePixels: 16
+
+					},
+					grid: {
+			            hoverable: true,
+			            clickable: true
+			        },
+			        tooltip: {
+			        		show: true,
+			        		content: "%x | %y" 
+			        }
+				});
+			}
+	);
+}
+
+//The function that plot the chart by FLOT and AJAX
+function plotFlowRate() {
+	$.post(
+			"M1FlowRateRealTimeData", 							// URL
+			function(data){										// A function to run if the request succeeds. 
+				var obj = JSON.parse(data);						// Parse the string that the resulting data from the request to a JSON object.
+				var dataset = obj.data;							// Get the "value" which "key" eauals "data"; It returns a array "dataset".
+				var flotdata = [];								// Create an array which can recieve the value
+				for (var i = 0; i < dataset.length; i++) {		
+					if (i % 2 == 0){								
+						var timeValue = [];
+						timeValue.push(dataset[i]);
+						timeValue.push(dataset[i + 1]);
+						flotdata.push(timeValue);				// The structure of flotdata is: [ [k,v], [k,v] ,[k, v],[k, v] ].
+					}
+				}
+				$.plot($("#flowrate"),[ flotdata ], {			// Plot the chart by FLOT
+				    series: {
+					    lines: {
+							show: true,
+							align: "center"
+						},
+						points: {show: false}
+					},
+					colors: ["#2269cc"],
+					xaxis: {
+						mode: "time",
+						timezone: "browser",
+						axisLabel: "Time",
+						axisLabelPadding: 20,
+						axisLabelUseCanvas: true,
+						axisLabelFontSizePixels: 16
+					},
+					yaxis: {
+						axisLabel: "Flow Rate (L/min)",
+						axisLabelUseCanvas: true,
+						axisLabelPadding: 10,
+						axisLabelFontSizePixels: 16
+
+					},
+					grid: {
+			            hoverable: true,
+			            clickable: true
+			        },
+			        tooltip: {
+			        		show: true,
+			        		content: "%x | %y" 
+			        }
+				});
+			}
+	);
+}
+
+// Active these functions and set interval for these functions when the document is ready.
+$(function() {
+	plotTemperature();
+	setInterval(plotTemperature, 5000);
+	plotPressure();
+	setInterval(plotPressure, 5000);
+	plotFlowRate();
+	setInterval(plotFlowRate, 5000);
 });
 
-<%
-//	String data2 = (String)session.getAttribute("data2");
-//	if(data2 == null) {
-//		data2 = "[0,0]";
-//	}
-
-%>
+// Re-plot the chart when the size of window is changed.
 $(function() {
-	var data = 	data2 = [
-		[1503932351093,200.00],
-		[1503932356097,200.40],
-		[1503932361101,199.00],
-		[1503932366103,201.00],
-		[1503932371107,199.80],
-		[1503932376108,199.80],
-		[1503932381110,199.10],
-		[1503932386113,199.20],
-		[1503932391114,200.60],
-		[1503932396118,199.00],
-		[1503932401122,199.50],
-		[1503932406122,199.20],
-		[1503932411127,199.70],
-		[1503932416128,200.10],
-		[1503932421134,200.50],
-		[1503932426138,200.10],
-		[1503932431139,199.40],
-		[1503932436142,199.70],
-		[1503932441143,199.00],
-		[1503932446144,199.80],
-		[1503932451149,199.00],
-		[1503932456150,199.80],
-		[1503932461154,200.30],
-		[1503932466156,201.00],
-		[1503932471156,199.20],
-		[1503932476160,199.10],
-		[1503932481164,199.60],
-		[1503932486168,199.20],
-		[1503932491172,200.30],
-		[1503932496176,200.70],
-		[1503932501180,199.90],
-		[1503932506184,199.70],
-		[1503932511188,199.70],
-		[1503932516192,200.30],
-		[1503932521196,200.70],
-		[1503932526201,199.30],
-		[1503932531203,199.50],
-		[1503932536203,200.20],
-		[1503932541208,199.70]
-	];
-	
-	$.plot($("#placeholder2"),[ data ], {
-		xaxis: {mode: "time"}	
-	});
-	
 	window.onresize = function() {
-		$.plot($("#placeholder2"),[ data ]
-		);		
-	}
+		plotTemperature()
+		plotPressure();
+		plotFlowRate();
+	}	
 });
 
 </script>
-
 </html>
 
