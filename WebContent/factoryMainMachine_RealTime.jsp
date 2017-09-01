@@ -29,6 +29,7 @@
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.time.js"></script>	
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.axislabels.js"></script>	
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.tooltip.js"></script>
+	<script language="javascript" type="text/javascript" src = "flot/curvedLines.js"></script>
 		
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -211,7 +212,11 @@ function plotPressure() {
 							show: true,
 							align: "center"
 						},
-						points: {show: false}
+						points: {show: false},
+						curvedLines: {
+							active: true,
+							apply: true				
+						}
 					},
 					colors: ["#2a9e3a"],
 					xaxis: {

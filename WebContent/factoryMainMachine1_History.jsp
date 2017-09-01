@@ -34,6 +34,7 @@
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.time.js"></script>	
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.axislabels.js"></script>	
 	<script language="javascript" type="text/javascript" src = "flot/jquery.flot.tooltip.js"></script>
+	<script language="javascript" type="text/javascript" src = "flot/curvedLines.js"></script>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -205,7 +206,6 @@ $(function() {
 	<% } %>	
 })
 
-
 $(function() {
 	$("#start-datepicker").datepicker();
 	$("#end-datepicker").datepicker();
@@ -370,6 +370,23 @@ $(function() {
 	}	
 });
 
+$(function() {
+	var data = [[-3.0,1.4778687866199123E-10],[-2.0,4.013342708303901E-5],[-1.0,0.07308503658363665],[0.0,0.8924883230457107],[1.0,0.07308503658363665],[2.0,4.013342708303901E-5],[3.0,1.4778687866199123E-10]];
+	
+	$.plot($("#placeholder2"),[ data ],{
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: true},
+			curvedLines: {
+				active: true,
+				apply: true				
+			}
+		}
+	});
+});
 </script>
 
 
