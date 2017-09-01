@@ -95,7 +95,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
                     <li style = "font-size:16px"><a href = "#"><span class = "glyphicon glyphicon-user"></span><%= firstname + " " + lastname%></a></li>
-                    <li style = "font-size:16px"><a href = "#"><span class = "glyphicon glyphicon-log-out"></span>Logout</a></li>
+                    <li style = "font-size:16px"><a href = "FactoryLogout"><span class = "glyphicon glyphicon-log-out"></span>Logout</a></li>
                 </ul>
 			</div>
 		</div>
@@ -165,8 +165,8 @@
         	<div class = "row">	
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder1" style = "width:100%; height:350px"></div>
+        			<p>Temperature</p>
+        			<div id = "temperature" style = "width:100%; height:350px"></div>
         		</div>        	
         		<div class = "col-sm-6" align = "center">
         			<hr>
@@ -176,7 +176,7 @@
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>Pressure</p>
-        			<div id = "placeholder3" style = "width:100%; height:350px"></div>
+        			<div id = "pressure" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
@@ -186,7 +186,7 @@
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<p>Flow Rate</p>
-        			<div id = "placeholder5" style = "width:100%; height:350px"></div>
+        			<div id = "flowrate" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
@@ -198,6 +198,13 @@
 
  
 <script>
+
+$(function() {
+	<% if (temperatureFlotData == null){ %>
+		alert("PLEASE SELECT THE TIME INTERVAL!");
+	<% } %>	
+})
+
 
 $(function() {
 	$("#start-datepicker").datepicker();
@@ -229,11 +236,12 @@ $(function() {
 		$("#end-slc-minute").append(left + i + right);
 	}
 });
- 	
+ 
+//The function that plot the chart according to the data which select from user. 
 function plotTemperature() {
 	var data = <%= temperatureFlotData %>;
 	
-	$.plot($("#placeholder1"),[ data ], {
+	$.plot($("#temperature"),[ data ], {
 	    series: {
 		    lines: {
 				show: true,
@@ -268,10 +276,11 @@ function plotTemperature() {
 	});
 }
 
+//The function that plot the chart according to the data which select from user.
 function plotPressure() {
 	var data = <%= pressureFlotData %>;
 	
-	$.plot($("#placeholder3"),[ data ], {
+	$.plot($("#pressure"),[ data ], {
 	    series: {
 		    lines: {
 				show: true,
@@ -306,10 +315,11 @@ function plotPressure() {
 	});
 }
 
+//The function that plot the chart according to the data which select from user.
 function plotFlowRate() {
 	var data = <%= flowRateFlotData %>;
 	
-	$.plot($("#placeholder5"),[ data ], {
+	$.plot($("#flowrate"),[ data ], {
 	    series: {
 		    lines: {
 				show: true,
@@ -344,13 +354,14 @@ function plotFlowRate() {
 	});
 }
 
+//Active these functions and set interval for these functions when the document is ready.
 $(function() {
 	plotTemperature();
 	plotPressure();
 	plotFlowRate();
 });
 
-
+//Re-plot the chart when the size of window is changed.
 $(function() {
 	window.onresize = function() {
 		plotTemperature();
