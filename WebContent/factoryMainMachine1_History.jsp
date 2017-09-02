@@ -6,7 +6,7 @@
 	String lastname = (String)session.getAttribute("lastname");
 	String isApproval = (String)session.getAttribute("isApproval");
 	
-	if (firstname == null || lastname == null) {
+ 	if (firstname == null || lastname == null) {
 		response.sendRedirect("FactoryLogin");
 	}
 %>
@@ -14,6 +14,9 @@
 	String temperatureFlotData = (String)session.getAttribute("temperatureFlotData");
 	String pressureFlotData = (String)session.getAttribute("pressureFlotData");
 	String flowRateFlotData = (String)session.getAttribute("flowRateFlotData");
+	String pDFOfTemperature = (String)session.getAttribute("pDFOfTemperature");
+	String pDFOfPressure = (String)session.getAttribute("pDFOfPressure");
+	String pDFOfFlowRate = (String)session.getAttribute("pDFOfFlowRate");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -154,14 +157,6 @@
 	        		</div>		
 	        	</div>
 		</form>    
-	    			
-    		<!-- DEBUG AREA -->
-    		<hr>
-    		<div class = "col-sm-12" align = "center">
-    			<span align = "center" id = "debug">DEBUG</span>
-    		</div>        				
-    		<hr>
-    		<!-- DEBUG AREA -->
         				
         	<div class = "row">	
         		<div class = "col-sm-6" align = "center">
@@ -171,8 +166,8 @@
         		</div>        	
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder2" style = "width:100%; height:350px"></div>
+        			<p>PDF - Temperature</p>
+        			<div id = "pdf-temperature" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
@@ -181,8 +176,8 @@
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder4" style = "width:100%; height:350px"></div>
+        			<p>PDF - Pressure</p>
+        			<div id = "pdf-pressure" style = "width:100%; height:350px"></div>
         		</div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
@@ -191,8 +186,8 @@
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder6" style = "width:100%; height:350px"></div>
+        			<p>PDF - Flow Rate</p>
+        			<div id = "pdf-flowrate" style = "width:100%; height:350px"></div>
         		</div>        	
         	</div>
 	</div>
@@ -217,10 +212,23 @@ $("#end-datepicker").datepicker({
 	dateFormat: "yy-mm-dd"
 });
 
+// Set the default value of datepicker is today.
+$(function() {
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	var date = d.getDate();
+	var today = year + ":" + month + ":" + date;
+	
+	$("#start-datepicker").val("2017-09-02");
+	$("#end-datepicker").val("2017-09-02");
+});
+
+
 $(function() {
 	var left = '<option>';
 	var right = '</option>';
-	for (var i = 0; i < 25; i++) {
+	for (var i = 0; i < 24; i++) {
 		i = (i < 10) ? (i = "0" + i) : (i);
 		$("#start-slc-hour").append(left + i + right);
 		$("#end-slc-hour").append(left + i + right);
@@ -263,7 +271,6 @@ function plotTemperature() {
 			axisLabelUseCanvas: true,
 			axisLabelPadding: 10,
 			axisLabelFontSizePixels: 16
-
 		},
 		grid: {
             hoverable: true,
@@ -271,7 +278,7 @@ function plotTemperature() {
         },
         tooltip: {
         		show: true,
-        		content: "%x | %y" 
+        		content: "%x | %y"
         }
 	});
 }
@@ -302,7 +309,6 @@ function plotPressure() {
 			axisLabelUseCanvas: true,
 			axisLabelPadding: 10,
 			axisLabelFontSizePixels: 16
-
 		},
 		grid: {
             hoverable: true,
@@ -341,7 +347,6 @@ function plotFlowRate() {
 			axisLabelUseCanvas: true,
 			axisLabelPadding: 10,
 			axisLabelFontSizePixels: 16
-
 		},
 		grid: {
             hoverable: true,
@@ -354,10 +359,109 @@ function plotFlowRate() {
 	});
 }
 
+//The function that plot the PDF chart according to the data which select from user.
+function plotPDFTemperature() {
+	var data = <%= pDFOfTemperature %>;
+	
+	$.plot($("#pdf-temperature"),[ data ],{
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: false},
+			curvedLines: {
+				active: true,
+				apply: true				
+			},
+		},
+		colors: ["#ff0000"],
+		xaxis: {
+			axisLabel: "Temperature",
+			axisLabelPadding: 20,
+			axisLabelUseCanvas: true,
+			axisLabelFontSizePixels: 16
+		},
+		yaxis: {
+			axisLabel: "Density",
+			axisLabelUseCanvas: true,
+			axisLabelPadding: 10,
+			axisLabelFontSizePixels: 16
+		}
+	});
+};
+
+//The function that plot the PDF chart according to the data which select from user.
+function plotPDFPressure() {
+	var data = <%= pDFOfPressure %>;
+	
+	$.plot($("#pdf-pressure"),[ data ],{
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: false},
+			curvedLines: {
+				active: true,
+				apply: true				
+			},
+		},
+		colors: ["#2a9e3a"],
+		xaxis: {
+			axisLabel: "Pressure",
+			axisLabelPadding: 20,
+			axisLabelUseCanvas: true,
+			axisLabelFontSizePixels: 16
+		},
+		yaxis: {
+			axisLabel: "Density",
+			axisLabelUseCanvas: true,
+			axisLabelPadding: 10,
+			axisLabelFontSizePixels: 16
+		}
+	});
+};
+
+//The function that plot the PDF chart according to the data which select from user.
+function plotPDFFlowRate() {
+	var data = <%= pDFOfFlowRate %>;
+	
+	$.plot($("#pdf-flowrate"),[ data ],{
+	    series: {
+		    lines: {
+				show: true,
+				align: "center"
+			},
+			points: {show: false},
+			curvedLines: {
+				active: true,
+				apply: true				
+			},
+		},
+		colors: ["#2269cc"],
+		xaxis: {
+			axisLabel: "Flow Rate",
+			axisLabelPadding: 20,
+			axisLabelUseCanvas: true,
+			axisLabelFontSizePixels: 16
+		},
+		yaxis: {
+			axisLabel: "Density",
+			axisLabelUseCanvas: true,
+			axisLabelPadding: 10,
+			axisLabelFontSizePixels: 16
+		}
+	});
+};
+
 //Active these functions and set interval for these functions when the document is ready.
 $(function() {
 	plotTemperature();
+	plotPDFTemperature();
 	plotPressure();
+	plotPDFPressure();
+	plotPDFFlowRate();
 	plotFlowRate();
 });
 
@@ -365,31 +469,15 @@ $(function() {
 $(function() {
 	window.onresize = function() {
 		plotTemperature();
+		plotPDFTemperature();
 		plotPressure();
+		plotPDFPressure();
+		plotPDFFlowRate();
 		plotFlowRate();
 	}	
 });
 
-$(function() {
-	var data = [[-3.0,1.4778687866199123E-10],[-2.0,4.013342708303901E-5],[-1.0,0.07308503658363665],[0.0,0.8924883230457107],[1.0,0.07308503658363665],[2.0,4.013342708303901E-5],[3.0,1.4778687866199123E-10]];
-	
-	$.plot($("#placeholder2"),[ data ],{
-	    series: {
-		    lines: {
-				show: true,
-				align: "center"
-			},
-			points: {show: true},
-			curvedLines: {
-				active: true,
-				apply: true				
-			}
-		}
-	});
-});
 </script>
-
-
 
 </body>
 </html>

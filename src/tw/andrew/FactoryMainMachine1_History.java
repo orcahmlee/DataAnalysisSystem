@@ -35,15 +35,23 @@ public class FactoryMainMachine1_History extends HttpServlet {
 		String endHour = (String)request.getParameter("endHour");
 		String startMinute = (String)request.getParameter("startMinute");
 		String endMinute = (String)request.getParameter("endMinute");
+		
 		// If the parameters are not null, creating an object to retrieve the data and set the data to the session.
 		if (startDate != null && endDate != null && startHour != null && endHour != null && startMinute != null && endMinute != null) {
 			HistoryFlotData hfd = new HistoryFlotData(equipment, startDate, endDate, startHour, endHour, startMinute, endMinute);
-			String temperatureFlotData = hfd.getTemperatureFlotData();
-			String pressureFlotData = hfd.getPressureFlotData();
-			String flowRateFlotData = hfd.getFlowRateFlotData();
+			String temperatureFlotData = hfd.getTemperatureFlotData(); // The data for "Run Chart"
+			String pressureFlotData = hfd.getPressureFlotData(); // The data for "Run Chart"
+			String flowRateFlotData = hfd.getFlowRateFlotData(); // The data for "Run Chart"
+			String pDFOfTemperature = hfd.getPDFOfTemperature();
+			String pDFOfPressure = hfd.getPDFOfPressure();
+			String pDFOfFlowRate = hfd.getPDFOfFlowRate();
+
 			session.setAttribute("temperatureFlotData", temperatureFlotData);
 			session.setAttribute("pressureFlotData", pressureFlotData);
 			session.setAttribute("flowRateFlotData", flowRateFlotData);
+			session.setAttribute("pDFOfTemperature", pDFOfTemperature);
+			session.setAttribute("pDFOfPressure", pDFOfPressure);
+			session.setAttribute("pDFOfFlowRate", pDFOfFlowRate);
 		}
 		// VIEW
 		// Send the request, response, and session(including the data) to the VIEW.
