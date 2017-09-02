@@ -27,7 +27,7 @@
 
 <script type = 'text/javascript'>
 function redirect() {
-	window.location.assign('http://localhost:8080/ProcessPredictSystem/FactoryLogin');
+	window.location.assign('http://localhost:8080/DataAnalysisSystem/FactoryLogin');
 }
 
 document.ready(setTimeout(redirect, 3000));
