@@ -32,13 +32,25 @@ public class HistoryFlotData {
 	private double doubleStdFlowRate;
 	
 	HistoryFlotData(String equipment, String startDate, String endDate, String startHour, String endHour, String startMinute, String endMinute) {
-		this.equipment = equipment; // The name of Machine
-		this.startDate = startDate;
+		this.equipment = equipment; // The name of Machine		
+		this.startDate = startDate;		
 		this.endDate = endDate;
-		this.startHour = startHour;
-		this.endHour = endHour;
-		this.startMinute = startMinute;
-		this.endMinute = endMinute;
+		
+		int intStartHour = Integer.parseInt(startHour);
+		String strStartHour = Integer.toString(intStartHour);
+		this.startHour = (intStartHour < 10) ? ("0" + strStartHour) : (startHour);
+		
+		int intEndHour = Integer.parseInt(endHour);
+		String strEndHour = Integer.toString(intEndHour);
+		this.endHour = (intEndHour < 10) ? ("0" + strEndHour) : (endHour);		
+		
+		int intStartMinute = Integer.parseInt(startMinute);
+		String strStartMinute = Integer.toString(intStartMinute);
+		this.startMinute = (intStartMinute < 10) ? ("0" + strStartMinute) : (startMinute);		
+		
+		int intEndMinute = Integer.parseInt(endMinute);
+		String strEndMinute = Integer.toString(intEndMinute);
+		this.endMinute = (intEndMinute < 10) ? ("0" + strEndMinute) : (endMinute);		
 				
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -77,12 +89,16 @@ public class HistoryFlotData {
 			ResultSet rs = pstmt.executeQuery();
 						
 			while (rs.next()) {
+				String date = rs.getString("date");
+				String time = rs.getString("time");
 				String timestamp = rs.getString("timestamp");
 				String temperature = rs.getString("temperature");
 				String pressure = rs.getString("pressure");
 				String flowrate = rs.getString("flowrate");
 				// Put the data into HashMap
 				dataMap = new HashMap<String, String>();
+				dataMap.put("date", date);
+				dataMap.put("time", time);
 				dataMap.put("timestamp", timestamp);
 				dataMap.put("temperature", temperature);
 				dataMap.put("pressure", pressure);
@@ -122,7 +138,6 @@ public class HistoryFlotData {
 			doubleStdPressure = sd.evaluate(tempPres);
 			doubleAvgFlowRate = mean.evaluate(tempFlow);
 			doubleStdFlowRate = sd.evaluate(tempFlow);
-
 		}catch (SQLException se) {
 			System.out.println(se);
 		}
