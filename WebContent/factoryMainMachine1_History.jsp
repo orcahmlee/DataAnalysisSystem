@@ -17,6 +17,7 @@
 	String pDFOfTemperature = (String)session.getAttribute("pDFOfTemperature");
 	String pDFOfPressure = (String)session.getAttribute("pDFOfPressure");
 	String pDFOfFlowRate = (String)session.getAttribute("pDFOfFlowRate");
+	Object dataLinkedMap = session.getAttribute("dataLinkedMap");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -108,83 +109,100 @@
     <div class = "container-fluid">
 	    <form method = "post" action = "FactoryMainMachine1_History">
 	      	<div class = "row">      	
-	        		<div class = "col-sm-2" align = "center">
-	        			<label style = "font-size:16px">START TIME</label>&nbsp;
+	        		<div class = "col-md-1" align = "center">
+		        		<div class = "form-control">
+		        			<label style = "font-size:16px">START</label>
+		        		</div>
 	        		</div>
-	        		<div class = "col-sm-3" align = "left">
-	        			<label>DATE:</label>&nbsp;
-	        			<input type = "text" size = "12" id = "start-datepicker" name = startDate>
+	        		<div class = "col-md-3" align = "left">
+    					<div class = "input-group">
+		        			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>	       
+	        				<input class="form-control" type = "text" id = "start-datepicker" name = startDate>
+	        			</div>
 	        		</div>
-	        		<div class = "col-sm-3" align = "left">
+	        		<div class = "col-md-3" align = "left">
 	        			<div class = "form-group">
-		    				<label>HOUR:</label>&nbsp; 		    					
-		    				<select class = "form-control" id = "start-slc-hour" name = startHour></select>
+		    				<label class="control-label">HOUR:</label>&nbsp;
+		    				<input class = "form-control" type = "text" size = "2" id = "start-input-hour" name = startHour>		    					
+		    				<select class = "form-control" id = "start-slc-hour" onchange = "putStartHour()"></select>
 		    			</div>
 	     		</div>
-	        		<div class = "col-sm-3" align = "left">	
+	        		<div class = "col-md-3" align = "left">	
 	    		    		<div class = "form-group">
-	    		    			<label>MINUTE:</label>&nbsp; 		    					
-	    		    			<select class = "form-control" id = "start-slc-minute" name = startMinute></select>
+	    		    			<label>MINUTE:</label>&nbsp;
+	    		    			<input class = "form-control" type = "text" size = "2" id = "start-input-minute" name = startMinute>    					
+	    		    			<select class = "form-control" id = "start-slc-minute" onchange = "putStartMinute()"></select>
 	    		    		</div>
 	        		</div>
-	        		<div class = "col-sm-1"></div>
+	        		<div class = "col-md-2"></div>
 	        	</div>
 	        			
 	        	<hr>
 	        			
 	        	<div class = "row">
-	        		<div class = "col-sm-2" align = "center">
-	        			<label style = "font-size:16px">END TIME</label>&nbsp;
+	        		<div class = "col-md-1" align = "center">
+		        		<div class = "form-control">
+		        			<label class="control-label" style = "font-size:16px">END</label>&nbsp;
+		        		</div>
 	        		</div>
-	        		<div class = "col-sm-3" align = "left">
-	        			<label>DATE:</label>&nbsp;
-	        			<input type = "text" size = "12" id = "end-datepicker" name = "endDate">
+	        		<div class = "col-md-3" align = "left">
+		        		<div class = "input-group">
+		        			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>	       
+		        			<input class="form-control" type = "text" id = "end-datepicker" onchange = "checkDate()" name = "endDate">
+		        		</div>
 	        		</div>
-	        		<div class = "col-sm-3" align = "left">
+	        		<div class = "col-md-3" align = "left">
 	        			<div class = "form-group">
-		    				<label>HOUR:</label>&nbsp; 		    					
-		    				<select class = "form-control" id = "end-slc-hour" name = "endHour"></select>
+		    				<label class="control-label">HOUR:</label>&nbsp;
+		    				<input class = "form-control" type = "text" size = "2" id = "end-input-hour" name = "endHour">	    					
+		    				<select class = "form-control" id = "end-slc-hour" onchange = "checkHour()" ></select>
 		    			</div>
 	        		</div>
-	        		<div class = "col-sm-3" align = "left">	
+	        		<div class = "col-md-3" align = "left">	
 	    		   		<div class = "form-group">
-	    		    			<label>MINUTE:</label>&nbsp;
-	    		    			<select class = "form-control" id = "end-slc-minute" name = "endMinute"></select>
+	    		    			<label class="control-label">MINUTE:</label>&nbsp;
+	    		    			<input class = "form-control" type = "text" size = "2" id = "end-input-minute" name = "endMinute">
+	    		    			<select class = "form-control" id = "end-slc-minute" onchange = "checkMinute()"></select>
 	    		    		</div>
 	        		</div>
-	        		<div class = "col-sm-1" align = "center">
-	        			<input type = "submit" class = "btn btn-default" style = "font-size:16px" value = "SEARCH"></input>        					
-	        		</div>		
+	        		<div class = "col-md-2" align = "center">
+		        		<div class = "form-horizontal">
+			        		<div class = "form-group">
+			        			<input type = "submit" class = "btn btn-default" style = "font-size:14px" value = "SEARCH"></input>
+							<a href = "SaveFile"><button type = "button" class = "btn btn-default" style = "font-size:14px">SAVE</button></a>    					
+			        		</div>
+		        		</div>
+	        		</div>
 	        	</div>
 		</form>    
         				
         	<div class = "row">	
-        		<div class = "col-sm-6" align = "center">
+        		<div class = "col-md-6" align = "center">
         			<hr>
         			<p>Temperature</p>
         			<div id = "temperature" style = "width:100%; height:350px"></div>
         		</div>        	
-        		<div class = "col-sm-6" align = "center">
+        		<div class = "col-md-6" align = "center">
         			<hr>
         			<p>PDF - Temperature</p>
         			<div id = "pdf-temperature" style = "width:100%; height:350px"></div>
         		</div>        		
-        		<div class = "col-sm-6" align = "center">
+        		<div class = "col-md-6" align = "center">
         			<hr>
         			<p>Pressure</p>
         			<div id = "pressure" style = "width:100%; height:350px"></div>
         		</div>        		
-        		<div class = "col-sm-6" align = "center">
+        		<div class = "col-md-6" align = "center">
         			<hr>
         			<p>PDF - Pressure</p>
         			<div id = "pdf-pressure" style = "width:100%; height:350px"></div>
         		</div>
-        		<div class = "col-sm-6" align = "center">
+        		<div class = "col-md-6" align = "center">
         			<hr>
         			<p>Flow Rate</p>
         			<div id = "flowrate" style = "width:100%; height:350px"></div>
         		</div>        		
-        		<div class = "col-sm-6" align = "center">
+        		<div class = "col-md-6" align = "center">
         			<hr>
         			<p>PDF - Flow Rate</p>
         			<div id = "pdf-flowrate" style = "width:100%; height:350px"></div>
@@ -195,16 +213,12 @@
  
 <script>
 
-$(function() {
-	<% if (temperatureFlotData == null){ %>
-		alert("PLEASE SELECT THE TIME INTERVAL!");
-	<% } %>	
-})
-
+// Initialize the datepicker(jQuery UI plugin). 
 $(function() {
 	$("#start-datepicker").datepicker();
 	$("#end-datepicker").datepicker();
 });
+// Set the data format of dataepicker.
 $("#start-datepicker").datepicker({
 	dateFormat: "yy-mm-dd"
 });
@@ -212,24 +226,10 @@ $("#end-datepicker").datepicker({
 	dateFormat: "yy-mm-dd"
 });
 
-// Set the default value of datepicker is today.
-$(function() {
-	var d = new Date();
-	var year = d.getFullYear();
-	var month = d.getMonth() + 1;
-	var date = d.getDate();
-	var today = year + ":" + month + ":" + date;
-	
-	$("#start-datepicker").val("2017-09-02");
-	$("#end-datepicker").val("2017-09-02");
-});
-
-
 $(function() {
 	var left = '<option>';
 	var right = '</option>';
 	for (var i = 0; i < 24; i++) {
-		i = (i < 10) ? (i = "0" + i) : (i);
 		$("#start-slc-hour").append(left + i + right);
 		$("#end-slc-hour").append(left + i + right);
 	}
@@ -239,10 +239,23 @@ $(function() {
 	var left = '<option>';
 	var right = '</option>';
 	for (var i = 0; i < 60; i++) {
-		i = (i < 10) ? (i = "0" + i) : (i);
 		$("#start-slc-minute").append(left + i + right);
 		$("#end-slc-minute").append(left + i + right);
 	}
+});
+
+//Set the default value of datepicker is today.
+$(function() {
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	month = (month < 10) ? ("0" + month) : (month);
+	var date = d.getDate();
+	date = (date < 10) ? ("0" + date) : (date);
+	var today = year + "-" + month + "-" + date;
+	
+	$("#start-datepicker").val(today);
+	$("#end-datepicker").val(today);
 });
  
 //The function that plot the chart according to the data which select from user. 
@@ -477,6 +490,60 @@ $(function() {
 	}	
 });
 
+// Prevent users choose the wrong date of interval.
+function checkDate() {
+	var startDate = $("#start-datepicker").val();
+	var endDate = $("#end-datepicker").val();
+	if (endDate < startDate) {
+		alert("Please Check the Date of Interval!");
+	};
+}
+		 
+function putStartHour() {
+	var startHour = $("#start-slc-hour").val();
+	$("#start-input-hour").val(startHour);
+}
+
+function putStartMinute() {
+	var startMinute = $("#start-slc-minute").val();
+	$("#start-input-minute").val(startMinute);
+}
+
+// Prevent users choose the wrong hour of interval.
+// Put the selected value into the input box.
+function checkHour() {
+	var startDate = $("#start-datepicker").val();
+	var endDate = $("#end-datepicker").val();
+	var startHour = $("#start-slc-hour").val();
+	var endHour = $("#end-slc-hour").val();
+	if (endDate == startDate) {
+		if (endHour < startHour) {
+			alert("Please Check the Hour of Interval!");
+		}
+	};
+	
+	$("#end-input-hour").val(endHour);
+}
+
+// Prevent users choose the wrong minute of interval.
+// Put the selected value into the input box.
+function checkMinute() {
+	var startDate = $("#start-datepicker").val();
+	var endDate = $("#end-datepicker").val();
+	var startHour = $("#start-slc-hour").val();
+	var endHour = $("#end-slc-hour").val();
+	var startMinute = $("#start-slc-minute").val();
+	var endMinute = $("#end-slc-minute").val();
+	if (endDate == startDate) {
+		if (endHour == startHour) {
+			if (endMinute < startMinute) {
+				alert("Please Check the Minute of Interval!");
+			}
+		}
+	};
+	
+	$("#end-input-minute").val(endMinute);
+}
 </script>
 
 </body>
