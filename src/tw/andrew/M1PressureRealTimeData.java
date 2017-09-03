@@ -16,7 +16,7 @@ public class M1PressureRealTimeData extends HttpServlet {
 		response.setContentType("text/html; chartset = UTF-8");
 		PrintWriter out = response.getWriter();
 
-		RealTimeFlotData rtfd = new RealTimeFlotData("M1", 5);
+		RealTimeFlotData rtfd = new RealTimeFlotData("M1", 10);
 		String realTimePressureFlotData = rtfd.getRealTimePressureFlotData();
 
 		out.println(realTimePressureFlotData);

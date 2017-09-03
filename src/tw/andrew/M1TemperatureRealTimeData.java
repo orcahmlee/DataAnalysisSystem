@@ -17,7 +17,7 @@ public class M1TemperatureRealTimeData extends HttpServlet {
 		response.setContentType("text/html; chartset = UTF-8");
 		PrintWriter out = response.getWriter();
 
-		RealTimeFlotData rtfd = new RealTimeFlotData("M1", 1);
+		RealTimeFlotData rtfd = new RealTimeFlotData("M1", 10);
 		String realTimeTemperatureFlotData = rtfd.getRealTimeTemperatureFlotData();
 		
 		out.println(realTimeTemperatureFlotData);
