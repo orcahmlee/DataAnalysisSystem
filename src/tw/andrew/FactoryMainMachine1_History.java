@@ -2,6 +2,8 @@ package tw.andrew;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +28,8 @@ public class FactoryMainMachine1_History extends HttpServlet {
 		String lastname = (String)session.getAttribute("lastname");
 		String isApproval = (String)session.getAttribute("isApproval");
 		
+		LinkedList<HashMap<String, String>> dataLinkedMap;
+		
 		// MODEL
 		// Get the parameters from the request.
 		String equipment = "M1";
@@ -35,6 +39,7 @@ public class FactoryMainMachine1_History extends HttpServlet {
 		String endHour = (String)request.getParameter("endHour");
 		String startMinute = (String)request.getParameter("startMinute");
 		String endMinute = (String)request.getParameter("endMinute");
+		
 		
 		// If the parameters are not null, creating an object to retrieve the data and set the data to the session.
 		if (startDate != null && endDate != null && startHour != null && endHour != null && startMinute != null && endMinute != null) {
@@ -52,6 +57,9 @@ public class FactoryMainMachine1_History extends HttpServlet {
 			session.setAttribute("pDFOfTemperature", pDFOfTemperature);
 			session.setAttribute("pDFOfPressure", pDFOfPressure);
 			session.setAttribute("pDFOfFlowRate", pDFOfFlowRate);
+			
+			dataLinkedMap = hfd.getDataLinkedMap();
+			session.setAttribute("dataLinkedMap", dataLinkedMap);
 		}
 		// VIEW
 		// Send the request, response, and session(including the data) to the VIEW.
