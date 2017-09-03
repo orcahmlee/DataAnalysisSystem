@@ -48,6 +48,14 @@ class DateTime {
 		return todayTime;
 	}
 	
+	String getSaveTime() {
+		StringBuffer sbSaveTime = new StringBuffer();
+		sbSaveTime = sbSaveTime.append(YYYY).append(MO).append(DD).append(HH).append(MM).append(SS);
+		String saveTime = sbSaveTime.toString();
+		
+		return saveTime;
+	}
+	
 	String getHour() {
 		return HH;
 	}
