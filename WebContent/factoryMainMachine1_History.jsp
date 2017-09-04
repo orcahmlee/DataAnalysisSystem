@@ -117,24 +117,24 @@
 	        		<div class = "col-md-3" align = "left">
     					<div class = "input-group">
 		        			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>	       
-	        				<input class="form-control" type = "text" id = "start-datepicker" name = startDate>
+	        				<input class="form-control" type = "text" id = "start-datepicker" name = startDate required>
 	        			</div>
 	        		</div>
 	        		<div class = "col-md-3" align = "left">
 	        			<div class = "form-group">
 		    				<label class="control-label">HOUR:</label>&nbsp;
-		    				<input class = "form-control" type = "text" size = "2" id = "start-input-hour" name = startHour>		    					
-		    				<select class = "form-control" id = "start-slc-hour" onchange = "putStartHour()"></select>
+		    				<input class = "form-control" type = "text" size = "2" id = "start-input-hour" name = startHour required>
 		    			</div>
 	     		</div>
 	        		<div class = "col-md-3" align = "left">	
 	    		    		<div class = "form-group">
 	    		    			<label>MINUTE:</label>&nbsp;
-	    		    			<input class = "form-control" type = "text" size = "2" id = "start-input-minute" name = startMinute>    					
-	    		    			<select class = "form-control" id = "start-slc-minute" onchange = "putStartMinute()"></select>
+	    		    			<input class = "form-control" type = "text" size = "2" id = "start-input-minute" name = startMinute required>    					
 	    		    		</div>
 	        		</div>
-	        		<div class = "col-md-2"></div>
+	        		<div class = "col-md-2">
+    		    			<span style = "color:red" align = "center" id = "checkResult"></span>	        		
+	        		</div>
 	        	</div>
 	        			
 	        	<hr>
@@ -148,21 +148,19 @@
 	        		<div class = "col-md-3" align = "left">
 		        		<div class = "input-group">
 		        			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>	       
-		        			<input class="form-control" type = "text" id = "end-datepicker" onchange = "checkDate()" name = "endDate">
+		        			<input class="form-control" type = "text" id = "end-datepicker" onchange = "checkDate()" name = "endDate" required>
 		        		</div>
 	        		</div>
 	        		<div class = "col-md-3" align = "left">
 	        			<div class = "form-group">
 		    				<label class="control-label">HOUR:</label>&nbsp;
-		    				<input class = "form-control" type = "text" size = "2" id = "end-input-hour" name = "endHour">	    					
-		    				<select class = "form-control" id = "end-slc-hour" onchange = "checkHour()" ></select>
+		    				<input class = "form-control" type = "text" size = "2" id = "end-input-hour" onchange = "checkHour()" name = "endHour" required>		    					    				
 		    			</div>
 	        		</div>
 	        		<div class = "col-md-3" align = "left">	
 	    		   		<div class = "form-group">
 	    		    			<label class="control-label">MINUTE:</label>&nbsp;
-	    		    			<input class = "form-control" type = "text" size = "2" id = "end-input-minute" name = "endMinute">
-	    		    			<select class = "form-control" id = "end-slc-minute" onchange = "checkMinute()"></select>
+	    		    			<input class = "form-control" type = "text" size = "2" id = "end-input-minute" onchange = "checkMinute()" name = "endMinute" required>
 	    		    		</div>
 	        		</div>
 	        		<div class = "col-md-2" align = "center">
@@ -495,34 +493,26 @@ function checkDate() {
 	var startDate = $("#start-datepicker").val();
 	var endDate = $("#end-datepicker").val();
 	if (endDate < startDate) {
-		alert("Please Check the Date of Interval!");
-	};
+		$("#checkResult").text("Please Check the Date of Interval!");
+	}else {
+		$("#checkResult").text("");
+	}
 }
 		 
-function putStartHour() {
-	var startHour = $("#start-slc-hour").val();
-	$("#start-input-hour").val(startHour);
-}
-
-function putStartMinute() {
-	var startMinute = $("#start-slc-minute").val();
-	$("#start-input-minute").val(startMinute);
-}
-
 // Prevent users choose the wrong hour of interval.
 // Put the selected value into the input box.
 function checkHour() {
 	var startDate = $("#start-datepicker").val();
 	var endDate = $("#end-datepicker").val();
-	var startHour = $("#start-slc-hour").val();
-	var endHour = $("#end-slc-hour").val();
+	var startHour = parseInt($("#start-input-hour").val());
+	var endHour = parseInt($("#end-input-hour").val());
 	if (endDate == startDate) {
 		if (endHour < startHour) {
-			alert("Please Check the Hour of Interval!");
+			$("#checkResult").text("Please Check the Hour of Interval!");
+		}else {
+			$("#checkResult").text("");
 		}
-	};
-	
-	$("#end-input-hour").val(endHour);
+	}	
 }
 
 // Prevent users choose the wrong minute of interval.
@@ -530,21 +520,21 @@ function checkHour() {
 function checkMinute() {
 	var startDate = $("#start-datepicker").val();
 	var endDate = $("#end-datepicker").val();
-	var startHour = $("#start-slc-hour").val();
-	var endHour = $("#end-slc-hour").val();
-	var startMinute = $("#start-slc-minute").val();
-	var endMinute = $("#end-slc-minute").val();
+	var startHour = parseInt($("#start-input-hour").val());
+	var endHour = parseInt($("#end-input-hour").val());
+	var startMinute = parseInt($("#start-input-minute").val());
+	var endMinute = parseInt($("#end-input-minute").val());
 	if (endDate == startDate) {
 		if (endHour == startHour) {
 			if (endMinute < startMinute) {
-				alert("Please Check the Minute of Interval!");
+				$("#checkResult").text("Please Check the Minute of Interval!");
 			}else if (endMinute == startMinute){
-				alert("Please Check the Time Interval!");
+				$("#checkResult").text("Please Check the Time Interval!");
+			}else {
+				$("#checkResult").text("");
 			}
 		}
-	};
-	
-	$("#end-input-minute").val(endMinute);
+	}
 }
 </script>
 
