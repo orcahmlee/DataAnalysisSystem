@@ -538,6 +538,8 @@ function checkMinute() {
 		if (endHour == startHour) {
 			if (endMinute < startMinute) {
 				alert("Please Check the Minute of Interval!");
+			}else if (endMinute == startMinute){
+				alert("Please Check the Time Interval!");
 			}
 		}
 	};
