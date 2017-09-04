@@ -172,37 +172,39 @@
 		        		</div>
 	        		</div>
 	        	</div>
-		</form>    
-        				
+		</form>
+		
+		<div class = "col-sm-12" align = "center"><h3>Machine 1</h3></div>
+		        				
         	<div class = "row">	
         		<div class = "col-md-6" align = "center">
         			<hr>
-        			<p>Temperature</p>
+        			<h4>Temperature</h4>
         			<div id = "temperature" style = "width:100%; height:350px"></div>
         		</div>        	
         		<div class = "col-md-6" align = "center">
         			<hr>
-        			<p>PDF - Temperature</p>
+        			<h4>PDF - Temperature</h4>
         			<div id = "pdf-temperature" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-md-6" align = "center">
         			<hr>
-        			<p>Pressure</p>
+        			<h4>Pressure</h4>
         			<div id = "pressure" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-md-6" align = "center">
         			<hr>
-        			<p>PDF - Pressure</p>
+        			<h4>PDF - Pressure</h4>
         			<div id = "pdf-pressure" style = "width:100%; height:350px"></div>
         		</div>
         		<div class = "col-md-6" align = "center">
         			<hr>
-        			<p>Flow Rate</p>
+        			<h4>Flow Rate</h4>
         			<div id = "flowrate" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-md-6" align = "center">
         			<hr>
-        			<p>PDF - Flow Rate</p>
+        			<h4>PDF - Flow Rate</h4>
         			<div id = "pdf-flowrate" style = "width:100%; height:350px"></div>
         		</div>        	
         	</div>
