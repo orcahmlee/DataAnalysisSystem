@@ -1,14 +1,18 @@
 package tw.andrew;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Properties;
 
+import org.apache.commons.math3.stat.descriptive.moment.Mean;
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.json.JSONStringer;
 import org.json.JSONWriter;
 
@@ -18,6 +22,21 @@ public class RealTimeFlotData {
 	private int numberOfData;
 	private HashMap<String, String> dataMap;
 	private LinkedList<HashMap<String, String>> dataLinkedMap = new LinkedList<HashMap<String, String>>();
+	private double[] tempTemp;
+	private double[] tempPres;
+	private double[] tempFlow;
+	private double doubleAvgTemperature;
+	private double doubleStdTemperature;
+	private double doubleAvgPressure;
+	private double doubleStdPressure;
+	private double doubleAvgFlowRate;
+	private double doubleStdFlowRate;
+	private String avgTemperature;
+	private String stdTemperature;
+	private String avgPressure;
+	private String stdPressure;
+	private String avgFlowRate;
+	private String stdFlowRate;
 	
 	RealTimeFlotData(String equipment, int minute) {
 		this.equipment = equipment; // The name of Machine
@@ -57,6 +76,39 @@ public class RealTimeFlotData {
 				// Add the HashMAp into LinkedList
 				dataLinkedMap.add(dataMap);		
 			}
+			
+			// Parse the data from string to double.
+			// Put the data to an array for calculating the "mean" and "standard deviation".
+			// Calculate the "mean" and "standard deviation" which in this array.
+			tempTemp = new double[numberOfData];
+			tempPres = new double[numberOfData];
+			tempFlow = new double[numberOfData];
+			Mean mean = new Mean();
+			StandardDeviation sd = new StandardDeviation();
+			for (int i = 0; i < dataLinkedMap.size(); i++) {
+				
+				// The array which contains the double data of temperature.
+				String temperature = dataLinkedMap.get(i).get("temperature"); // Retrieve the string data from LinkedList.
+				double temp = Double.parseDouble(temperature); // Parse the data from string to double.
+				Arrays.fill(tempTemp, i, i+1, temp);	 // Add the double data to an array.
+
+				// The array which contains the double data of pressure.		
+				String pressure = dataLinkedMap.get(i).get("pressure");
+				double pres = Double.parseDouble(pressure);
+				Arrays.fill(tempPres, i, i+1, pres);	
+
+				// The array which contains the double data of flowrate.
+				String flowrate = dataLinkedMap.get(i).get("flowrate");
+				double fr = Double.parseDouble(flowrate);
+				Arrays.fill(tempFlow, i, i+1, fr);	
+			}
+			doubleAvgTemperature = mean.evaluate(tempTemp); // Calculating the "mean" of the data which in this array.
+			doubleStdTemperature = sd.evaluate(tempTemp); // Calculating the "standard deviation" of the data which in this array.
+			doubleAvgPressure = mean.evaluate(tempPres);
+			doubleStdPressure = sd.evaluate(tempPres);
+			doubleAvgFlowRate = mean.evaluate(tempFlow);
+			doubleStdFlowRate = sd.evaluate(tempFlow);
+
 		}catch (SQLException se) {
 			System.out.println(se);
 		}
@@ -175,8 +227,46 @@ public class RealTimeFlotData {
 		
 		return realTimeFlowRateFlotData;
 	}
+
+	public String getAvgTemperature() {
+		BigDecimal temp = new BigDecimal(doubleAvgTemperature).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
+		avgTemperature = temp.toString();
 		
-	public int getNumberOfData() {
-		return numberOfData;
+		return avgTemperature;
 	}
+	
+	public String getStdTemperature() {
+		BigDecimal temp = new BigDecimal(doubleStdTemperature).setScale(3, BigDecimal.ROUND_HALF_UP); // 取小數點後第三位，四捨五入
+		stdTemperature = temp.toString();
+		
+		return stdTemperature;
+	}
+	
+	public String getAvgPressure() {
+		BigDecimal temp = new BigDecimal(doubleAvgPressure).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
+		avgPressure = temp.toString();
+
+		return avgPressure;
+	}
+	
+	public String getStdPressure() {
+		BigDecimal temp = new BigDecimal(doubleStdPressure).setScale(3, BigDecimal.ROUND_HALF_UP); // 取小數點後第三位，四捨五入
+		stdPressure = temp.toString();
+		
+		return stdPressure;
+	}
+	
+	public String getAvgFlowRate() {
+		BigDecimal temp = new BigDecimal(doubleAvgFlowRate).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
+		avgFlowRate = temp.toString();
+
+		return avgFlowRate;
+	}
+	
+	public String getStdFlowRate() {
+		BigDecimal temp = new BigDecimal(doubleStdFlowRate).setScale(3, BigDecimal.ROUND_HALF_UP); // 取小數點後第三位，四捨五入
+		stdFlowRate = temp.toString();
+
+		return stdFlowRate;
+	}	
 }

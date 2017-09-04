@@ -97,38 +97,101 @@
 		</div>
 	</nav>
 
-    <div class = "container-fluid">        				
+    <div class = "container-fluid">       				
         	<div class = "row">
-        		<div class = "col-sm-12" align = "center">Machine 1</div>
+        		<div class = "col-sm-12" align = "center"><h3>Machine 1</h3></div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>Temperature</p>
+        			<h4>Temperature</h4>
         			<div id = "temperature" style = "width:100%; height:350px"></div>
-        		</div>        	
+			</div>        	
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder2" style = "width:100%; height:350px"></div>
-        		</div>        		
+        			<h4>Temperature - Main Data</h4>        			
+				<div class="table-responsive" style = "width:75%; height:350px">          
+					<table class="table table-hover table-bordered" style = "font-size:20px">
+					  <tbody>
+					    <tr >
+					      <td align = "left">Set Point</td>
+					      <td align = "center">200.0</td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Average</td>
+					      <td align = "center" id = "avg-temperature"></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Standard Deviation</td>
+					      <td align = "center" id = "std-temperature"></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+ 			</div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>Pressure</p>
+        			<h4>Pressure</h4>
         			<div id = "pressure" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder4" style = "width:100%; height:350px"></div>
+        			<h4>Pressure - Main Data</h4>        			
+				<div class="table-responsive" style = "width:75%; height:350px">          
+					<table class="table table-hover table-bordered" style = "font-size:20px">
+					  <tbody>
+					    <tr >
+					      <td align = "left">Set Point</td>
+					      <td align = "center">101.3</td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Average</td>
+					      <td align = "center" id = "avg-pressure"></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Standard Deviation</td>
+					      <td align = "center" id = "std-pressure"></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
         		</div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>Flow Rate</p>
+        			<h4>Flow Rate</h4>
         			<div id = "flowrate" style = "width:100%; height:350px"></div>
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<p>PDF</p>
-        			<div id = "placeholder6" style = "width:100%; height:350px"></div>
+        			<h4>Flow Rate - Main Data</h4>        			
+				<div class="table-responsive" style = "width:75%; height:350px">          
+					<table class="table table-hover table-bordered" style = "font-size:20px">
+					  <tbody>
+					    <tr >
+					      <td align = "left">Set Point</td>
+					      <td align = "center">100.0</td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Average</td>
+					      <td align = "center" id = "avg-flowrate"></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Standard Deviation</td>
+					      <td align = "center" id = "std-flowrate"></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
         		</div>        	
         	</div>
 	</div>
@@ -212,11 +275,7 @@ function plotPressure() {
 							show: true,
 							align: "center"
 						},
-						points: {show: false},
-						curvedLines: {
-							active: true,
-							apply: true				
-						}
+						points: {show: false}
 					},
 					colors: ["#2a9e3a"],
 					xaxis: {
@@ -300,14 +359,110 @@ function plotFlowRate() {
 	);
 }
 
+function getAnalysisTemperature() {
+	$.post(
+			"M1TemperatureAnalysisData",
+			function(data) {
+				var obj = JSON.parse(data);
+				var avg = (obj.avgTemperature).toString();
+				var std = (obj.stdTemperature).toString();
+				
+				if (avg.length < 5){
+					avg = avg + ".0";
+				}else {
+					avg = avg;
+				}
+				
+				if (std.length < 5){
+					if (std.length == 4){
+						std = std + "0";
+					}else if (std.length == 3){
+						std = std + "00";
+					}
+				}else {
+					std = std;
+				}
+				
+				$("#avg-temperature").html(avg);
+				$("#std-temperature").html(std);
+			}
+	);
+}
+
+function getAnalysisPressure() {
+	$.post(
+			"M1PressureAnalysisData",
+			function(data) {
+				var obj = JSON.parse(data);
+				var avg = (obj.avgPressure).toString();
+				var std = (obj.stdPressure).toString();
+				
+				if (avg.length < 5){
+					avg = avg + ".0";
+				}else {
+					avg = avg;
+				}
+				
+				if (std.length < 5){
+					if (std.length == 4){
+						std = std + "0";
+					}else if (std.length == 3){
+						std = std + "00";
+					}
+				}else {
+					std = std;
+				}
+				
+				$("#avg-pressure").html(avg);
+				$("#std-pressure").html(std);
+			}
+	);
+}
+
+function getAnalysisFlowRate() {
+	$.post(
+			"M1FlowRateAnalysisData",
+			function(data) {
+				var obj = JSON.parse(data);
+				var avg = (obj.avgFlowRate).toString();
+				var std = (obj.stdFlowRate).toString();
+				
+				if (avg.length == 3 || avg.length == 2) {
+					avg = avg + ".0";
+				}
+
+				if (std.length < 5){
+					if (std.length == 4){
+						std = std + "0";
+					}else if (std.length == 3){
+						std = std + "00";
+					}
+				}else {
+					std = std;
+				}
+				
+				$("#avg-flowrate").html(avg);
+				$("#std-flowrate").html(std);
+			}
+	);
+}
+
 // Active these functions and set interval for these functions when the document is ready.
 $(function() {
 	plotTemperature();
 	setInterval(plotTemperature, 5000);
+	getAnalysisTemperature();
+	setInterval(getAnalysisTemperature, 5000);
+
 	plotPressure();
 	setInterval(plotPressure, 5000);
+	getAnalysisPressure();
+	setInterval(getAnalysisPressure, 5000);
+
 	plotFlowRate();
 	setInterval(plotFlowRate, 5000);
+	getAnalysisFlowRate();
+	setInterval(getAnalysisFlowRate, 5000);
 });
 
 // Re-plot the chart when the size of window is changed.
@@ -316,6 +471,9 @@ $(function() {
 		plotTemperature()
 		plotPressure();
 		plotFlowRate();
+		getAnalysisTemperature();
+		getAnalysisPressure();
+		getAnalysisFlowRate();
 	}	
 });
 
