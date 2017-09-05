@@ -27,7 +27,7 @@ public class FactoryMainMachine1_RealTime extends HttpServlet {
 		String isApproval = (String)session.getAttribute("isApproval");
 		
 		// VIEW
-		RequestDispatcher rd = request.getRequestDispatcher("factoryMainMachine_RealTime.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("factoryMainMachine1_RealTime.jsp");
 		rd.forward(request, response);
 	
 	}
