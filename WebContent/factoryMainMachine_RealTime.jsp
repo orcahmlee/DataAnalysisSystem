@@ -107,7 +107,7 @@
 			</div>        	
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<h4>Temperature - Main Data</h4>        			
+        			<h4>Temperature - Statistics</h4>        			
 				<div class="table-responsive" style = "width:75%; height:350px">          
 					<table class="table table-hover table-bordered" style = "font-size:20px">
 					  <tbody>
@@ -138,7 +138,7 @@
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<h4>Pressure - Main Data</h4>        			
+        			<h4>Pressure - Statistics</h4>        			
 				<div class="table-responsive" style = "width:75%; height:350px">          
 					<table class="table table-hover table-bordered" style = "font-size:20px">
 					  <tbody>
@@ -169,7 +169,7 @@
         		</div>        		
         		<div class = "col-sm-6" align = "center">
         			<hr>
-        			<h4>Flow Rate - Main Data</h4>        			
+        			<h4>Flow Rate - Statistics</h4>        			
 				<div class="table-responsive" style = "width:75%; height:350px">          
 					<table class="table table-hover table-bordered" style = "font-size:20px">
 					  <tbody>
@@ -216,39 +216,53 @@ function plotTemperature() {
 						flotdata.push(timeValue);				// The structure of flotdata is: [ [k,v], [k,v] ,[k, v],[k, v] ].
 					}
 				}
-				$.plot($("#temperature"),[ flotdata ], {			// Plot the chart by FLOT
-				    series: {
-					    lines: {
-							show: true,
-							align: "center"
+				
+				// Prepared the Set Point data.
+				var setPointdata = [];
+				var intValue = [];
+				intValue.push(dataset[0]);
+				intValue.push("200.0");
+				setPointdata.push(intValue);
+				var endValue = [];
+				endValue.push(dataset[dataset.length - 2]);
+				endValue.push("200.0");
+				setPointdata.push(endValue);
+				
+				// Plot the chart by FLOT.
+				$.plot($("#temperature"),[ flotdata, setPointdata], {	
+					    series: {
+						    lines: {
+								show: true,
+								align: "center"
+							},
+							points: {show: false}
 						},
-						points: {show: false}
-					},
-					colors: ["#ff0000"],
-					xaxis: {
-						mode: "time",
-						timezone: "browser",
-						axisLabel: "Time",
-						axisLabelPadding: 20,
-						axisLabelUseCanvas: true,
-						axisLabelFontSizePixels: 16
-					},
-					yaxis: {
-						axisLabel: "Temp. (degree C)",
-						axisLabelUseCanvas: true,
-						axisLabelPadding: 10,
-						axisLabelFontSizePixels: 16
-
-					},
-					grid: {
-			            hoverable: true,
-			            clickable: true
-			        },
-			        tooltip: {
-			        		show: true,
-			        		content: "%x | %y" 
-			        }
-				});
+						colors: ["#ff0000", "#c6c6c6"],
+						xaxis: {
+							mode: "time",
+							timezone: "browser",
+							axisLabel: "Time",
+							axisLabelPadding: 20,
+							axisLabelUseCanvas: true,
+							axisLabelFontSizePixels: 16
+						},
+						yaxis: {
+							axisLabel: "Temp. (degree C)",
+							axisLabelUseCanvas: true,
+							axisLabelPadding: 10,
+							axisLabelFontSizePixels: 16
+	
+						},
+						grid: {
+				            hoverable: true,
+				            clickable: true
+				        },
+				        tooltip: {
+				        		show: true,
+				        		content: "%x | %y" 
+				        }
+					}
+				);
 			}
 	);
 }
@@ -269,7 +283,20 @@ function plotPressure() {
 						flotdata.push(timeValue);				// The structure of flotdata is: [ [k,v], [k,v] ,[k, v],[k, v] ].
 					}
 				}
-				$.plot($("#pressure"),[ flotdata ], {			// Plot the chart by FLOT
+				
+				// Prepared the Set Point data.
+				var setPointdata = [];
+				var intValue = [];
+				intValue.push(dataset[0]);
+				intValue.push("101.3");
+				setPointdata.push(intValue);
+				var endValue = [];
+				endValue.push(dataset[dataset.length - 2]);
+				endValue.push("101.3");
+				setPointdata.push(endValue);
+				
+				// Plot the chart by FLOT.
+				$.plot($("#pressure"),[ flotdata, setPointdata ], {
 				    series: {
 					    lines: {
 							show: true,
@@ -277,7 +304,7 @@ function plotPressure() {
 						},
 						points: {show: false}
 					},
-					colors: ["#2a9e3a"],
+					colors: ["#2a9e3a", "#c6c6c6"],
 					xaxis: {
 						mode: "time",
 						timezone: "browser",
@@ -322,7 +349,20 @@ function plotFlowRate() {
 						flotdata.push(timeValue);				// The structure of flotdata is: [ [k,v], [k,v] ,[k, v],[k, v] ].
 					}
 				}
-				$.plot($("#flowrate"),[ flotdata ], {			// Plot the chart by FLOT
+				
+				// Prepared the Set Point data.
+				var setPointdata = [];
+				var intValue = [];
+				intValue.push(dataset[0]);
+				intValue.push("100.0");
+				setPointdata.push(intValue);
+				var endValue = [];
+				endValue.push(dataset[dataset.length - 2]);
+				endValue.push("100.0");
+				setPointdata.push(endValue);
+				
+				// Plot the chart by FLOT.				
+				$.plot($("#flowrate"),[ flotdata, setPointdata ], {
 				    series: {
 					    lines: {
 							show: true,
@@ -330,7 +370,7 @@ function plotFlowRate() {
 						},
 						points: {show: false}
 					},
-					colors: ["#2269cc"],
+					colors: ["#2269cc", "#c6c6c6"],
 					xaxis: {
 						mode: "time",
 						timezone: "browser",
@@ -476,6 +516,9 @@ $(function() {
 		getAnalysisFlowRate();
 	}	
 });
+
+
+
 
 </script>
 </html>
