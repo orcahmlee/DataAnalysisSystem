@@ -82,22 +82,22 @@
         				<li class = "dropdown">
         					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine 2<span class = "caret"></span></a>
         					<ul class = "dropdown-menu">
-        						<li><a href = "#">Real-Time</a></li>
-        						<li><a href = "#">History</a></li>
+        						<li><a href = "FactoryMainMachine2_RealTime">Real-Time</a></li>
+        						<li><a href = "FactoryMainMachine2_History">History</a></li>
         					</ul>
         				</li>
         				<li class = "dropdown">
         					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine 3<span class = "caret"></span></a>
         					<ul class = "dropdown-menu">
-        						<li><a href = "#">Real-Time</a></li>
-        						<li><a href = "#">History</a></li>
+        						<li><a href = "FactoryMainMachine3_RealTime">Real-Time</a></li>
+        						<li><a href = "FactoryMainMachine3_History">History</a></li>
         					</ul>
         				</li>
         				<li class = "dropdown">
         					<a class = "dropdown-toggle" data-toggle = "dropdown" href = "#">Machine4<span class = "caret"></span></a>
         					<ul class = "dropdown-menu">
-        						<li><a href = "#">Real-Time</a></li>
-        						<li><a href = "#">History</a></li>
+        						<li><a href = "FactoryMainMachine4_RealTime">Real-Time</a></li>
+        						<li><a href = "FactoryMainMachine4_History">History</a></li>
         					</ul>
         				</li>
 				</ul>

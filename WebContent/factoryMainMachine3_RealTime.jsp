@@ -99,7 +99,7 @@
 
     <div class = "container-fluid">       				
         	<div class = "row">
-        		<div class = "col-sm-12" align = "center"><h3>Machine 1</h3></div>
+        		<div class = "col-sm-12" align = "center"><h3>Machine 3</h3></div>
         		<div class = "col-sm-6" align = "center">
         			<hr>
         			<h4>Temperature</h4>
@@ -203,7 +203,7 @@
 // The function that plot the chart by FLOT and AJAX
 function plotTemperature() {
 	$.post(
-			"M1TemperatureRealTimeData",							// URL
+			"M3TemperatureRealTimeData", 						// URL
 			function(data){										// A function to run if the request succeeds. 
 				var obj = JSON.parse(data);						// Parse the string that the resulting data from the request to a JSON object.
 				var dataset = obj.data;							// Get the "value" which "key" eauals "data"; It returns a array "dataset".
@@ -270,7 +270,7 @@ function plotTemperature() {
 //The function that plot the chart by FLOT and AJAX
 function plotPressure() {
 	$.post(
-			"M1PressureRealTimeData", 							// URL
+			"M3PressureRealTimeData", 							// URL
 			function(data){										// A function to run if the request succeeds. 
 				var obj = JSON.parse(data);						// Parse the string that the resulting data from the request to a JSON object.
 				var dataset = obj.data;							// Get the "value" which "key" eauals "data"; It returns a array "dataset".
@@ -336,7 +336,7 @@ function plotPressure() {
 //The function that plot the chart by FLOT and AJAX
 function plotFlowRate() {
 	$.post(
-			"M1FlowRateRealTimeData", 							// URL
+			"M3FlowRateRealTimeData", 							// URL
 			function(data){										// A function to run if the request succeeds. 
 				var obj = JSON.parse(data);						// Parse the string that the resulting data from the request to a JSON object.
 				var dataset = obj.data;							// Get the "value" which "key" eauals "data"; It returns a array "dataset".
@@ -401,7 +401,7 @@ function plotFlowRate() {
 
 function getAnalysisTemperature() {
 	$.post(
-			"M1TemperatureAnalysisData",
+			"M3TemperatureAnalysisData",
 			function(data) {
 				var obj = JSON.parse(data);
 				var avg = (obj.avgTemperature).toString();
@@ -431,7 +431,7 @@ function getAnalysisTemperature() {
 
 function getAnalysisPressure() {
 	$.post(
-			"M1PressureAnalysisData",
+			"M3PressureAnalysisData",
 			function(data) {
 				var obj = JSON.parse(data);
 				var avg = (obj.avgPressure).toString();
@@ -461,7 +461,7 @@ function getAnalysisPressure() {
 
 function getAnalysisFlowRate() {
 	$.post(
-			"M1FlowRateAnalysisData",
+			"M3FlowRateAnalysisData",
 			function(data) {
 				var obj = JSON.parse(data);
 				var avg = (obj.avgFlowRate).toString();
