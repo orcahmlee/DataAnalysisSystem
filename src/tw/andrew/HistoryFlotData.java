@@ -89,6 +89,7 @@ public class HistoryFlotData {
 			ResultSet rs = pstmt.executeQuery();
 						
 			while (rs.next()) {
+				String machine = rs.getString("machine");
 				String date = rs.getString("date");
 				String time = rs.getString("time");
 				String timestamp = rs.getString("timestamp");
@@ -97,6 +98,7 @@ public class HistoryFlotData {
 				String flowrate = rs.getString("flowrate");
 				// Put the data into HashMap
 				dataMap = new HashMap<String, String>();
+				dataMap.put("machine", machine);
 				dataMap.put("date", date);
 				dataMap.put("time", time);
 				dataMap.put("timestamp", timestamp);

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/FactoryMainMachine1_History")
-public class FactoryMainMachine1_History extends HttpServlet {
+@WebServlet("/FactoryMainMachine4_History")
+public class FactoryMainMachine4_History extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; chartset = UTF-8");
@@ -32,13 +32,14 @@ public class FactoryMainMachine1_History extends HttpServlet {
 		
 		// MODEL
 		// Get the parameters from the request.
-		String equipment = "M1";
+		String equipment = "M4";
 		String startDate = (String)request.getParameter("startDate");
 		String endDate = (String)request.getParameter("endDate");
 		String startHour = (String)request.getParameter("startHour");
 		String endHour = (String)request.getParameter("endHour");
 		String startMinute = (String)request.getParameter("startMinute");
 		String endMinute = (String)request.getParameter("endMinute");
+		
 		
 		// If the parameters are not null, creating an object to retrieve the data and set the data to the session.
 		if (startDate != null && endDate != null && startHour != null && endHour != null && startMinute != null && endMinute != null) {
@@ -52,7 +53,7 @@ public class FactoryMainMachine1_History extends HttpServlet {
 			String normalDistributionOfTemperature = hfd.getNormalDistributionOfTemperature();
 			String normalDistributionOfPressure = hfd.getNormalDistributionOfPressure();
 			String normalDistributionOfFlowRate = hfd.getNormalDistributionOfFlowRate();
-			
+
 			session.setAttribute("machine", equipment);
 			session.setAttribute("temperatureFlotData", temperatureFlotData);
 			session.setAttribute("pressureFlotData", pressureFlotData);
@@ -69,7 +70,7 @@ public class FactoryMainMachine1_History extends HttpServlet {
 		}
 		// VIEW
 		// Send the request, response, and session(including the data) to the VIEW.
-		RequestDispatcher rd = request.getRequestDispatcher("factoryMainMachine1_History.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("factoryMainMachine4_History.jsp");
 		rd.forward(request, response);
 	}
 

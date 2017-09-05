@@ -112,7 +112,7 @@
 	</nav>
 
     <div class = "container-fluid">
-	    <form method = "post" action = "FactoryMainMachine1_History">
+	    <form method = "post" action = "FactoryMainMachine2_History">
 	      	<div class = "row">      	
 	        		<div class = "col-md-1" align = "center">
 		        		<div class = "form-control">
@@ -179,7 +179,7 @@
 	        	</div>
 		</form>
 		
-		<div class = "col-sm-12" align = "center"><h3>Machine 1</h3></div>
+		<div class = "col-sm-12" align = "center"><h3>Machine 2</h3></div>
 		        				
         	<div class = "row">	
         		<div class = "col-md-6" align = "center">
@@ -501,9 +501,9 @@ $(function() {
 	}	
 });
 
-// Reflush the charts.
+//Reflush the charts.
 $(function() {
-	<%if (machine != "M1"){%>
+	<%if (machine != "M2"){%>
 		init();
 	<%}%>
 });
@@ -565,7 +565,6 @@ function checkMinute() {
 		}
 	}
 }
-
 </script>
 
 </body>
