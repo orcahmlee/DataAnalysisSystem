@@ -20,10 +20,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- JQuery UI -->
+	<!-- jQuery UI -->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<!-- JQuery UI CSS-->
+	<!-- jQuery UI CSS-->
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
+	<!-- jQurey Plugin Circle -->
+	<script src="circle/circle-progress.js"></script>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,6 +38,22 @@
 			width:auto;
 			display:inline-block;
 	    }
+	    .circle {
+		  position: relative;
+		  display: inline-block;
+		}
+		
+		.circle .value {
+		  position: absolute;
+		  z-index: 1;
+		  left: 0;
+		  right: 0;
+		  top: 50%;
+		  margin-top: -15px;
+		  height: 30px;
+		  font: 24px/30px sans-serif;
+		  text-align: center;
+		}	    
     </style>	
 </head>
 
@@ -94,25 +112,83 @@
     <div class = "container">
         	<div class = "row">	
         		<div class = "col-sm-6" align = "center">
-        			<p>Machine 1</p>
-        			<img src = "pics/1.jpg" width = "80%"/>
+        			<h3><a href = "FactoryMainMachine1_RealTime" style = "color: black">Machine 1</a></h3>
+	        		<div class="m1 circle" align = "center">
+					<div class="value">				
+		       			<strong></strong>	       			
+				    </div>
+				</div>
         		</div>
         		<div class = "col-sm-6" align = "center">
-        			<p>Machine 2</p>
-        			<img src = "pics/2.jpg" width = "80%"/>
+        			<h3><a href = "FactoryMainMachine2_RealTime" style = "color: black">Machine 2</a></h3>
+	        		<div class="m2 circle" align = "center">
+					<div class="value">				
+		       			<strong></strong>	       			
+				    </div>
+				</div>
         		</div>
         		<hr>
         		<div class = "col-sm-6" align = "center">
-        			<p>Machine 3</p>
-        			<img src = "pics/3.jpg" width = "80%"/>
+        			<h3><a href = "FactoryMainMachine3_RealTime" style = "color: black">Machine 3</a></h3>
+	        		<div class="m3 circle" align = "center">
+					<div class="value">				
+		       			<strong></strong>	       			
+				    </div>
+				</div>
         		</div>
         		<div class = "col-sm-6" align = "center">
-        			<p>Machine 4</p>
-        			<img src = "pics/4.jpg" width = "80%"/>
+        			<h3><a href = "FactoryMainMachine4_RealTime" style = "color: black">Machine 4</a></h3>
+	        		<div class="m4 circle" align = "center">
+					<div class="value">				
+		       			<strong></strong>	       			
+				    </div>
+				</div>
         		</div>
         	</div>
 	</div>
+
+<script>
+
+$('.m1.circle').circleProgress({
+	value: 0.95,
+	size: 175,
+	fill: { gradient: ['#0681c4', '#07c6c1'] }
+})
+.on('circle-animation-progress', function(event, progress) {
+	$(this).find('strong').html(parseInt(95 * progress) + '<i>%</i>');
+});
+
+$('.m2.circle').circleProgress({ 
+	value: 0.76,
+	size: 175,
+	fill: { gradient: ['#0681c4', '#07c6c1'] }
+})
+.on('circle-animation-progress', function(event, progress) {
+	$(this).find('strong').html(parseInt(76 * progress) + '<i>%</i>');
+});
+
+$('.m3.circle').circleProgress({ 
+	value: 0.88,
+	size: 175,
+	fill: { gradient: ['#0681c4', '#07c6c1'] }
+})
+.on('circle-animation-progress', function(event, progress) {
+	$(this).find('strong').html(parseInt(88 * progress) + '<i>%</i>');
+});
+
+$('.m4.circle').circleProgress({ 
+	value: 0.16,
+	size: 175,
+	fill: { gradient: ['#0681c4', '#07c6c1'] }
+})
+.on('circle-animation-progress', function(event, progress) {
+	$(this).find('strong').html(parseInt(16 * progress) + '<i>%</i>');
+});
+
+
+</script>
 	
 </body>
+
 </html>
 
