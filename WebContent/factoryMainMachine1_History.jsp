@@ -17,6 +17,10 @@
 	String pDFOfTemperature = (String)session.getAttribute("pDFOfTemperature");
 	String pDFOfPressure = (String)session.getAttribute("pDFOfPressure");
 	String pDFOfFlowRate = (String)session.getAttribute("pDFOfFlowRate");
+	String normalDistributionOfTemperature = (String)session.getAttribute("normalDistributionOfTemperature");
+	String normalDistributionOfPressure = (String)session.getAttribute("normalDistributionOfPressure");
+	String normalDistributionOfFlowRate = (String)session.getAttribute("normalDistributionOfFlowRate");
+
 	Object dataLinkedMap = session.getAttribute("dataLinkedMap");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -375,8 +379,9 @@ function plotFlowRate() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotPDFTemperature() {
 	var data = <%= pDFOfTemperature %>;
+	var nd = <%= normalDistributionOfTemperature %>;
 	
-	$.plot($("#pdf-temperature"),[ data ],{
+	$.plot($("#pdf-temperature"),[ data, nd ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -385,10 +390,11 @@ function plotPDFTemperature() {
 			points: {show: false},
 			curvedLines: {
 				active: true,
-				apply: true				
+				apply: true,
+				tension: 1.0
 			},
 		},
-		colors: ["#ff0000"],
+		colors: ["#ff0000", "#c6c6c6"],
 		xaxis: {
 			axisLabel: "Temperature",
 			axisLabelPadding: 20,
@@ -407,8 +413,9 @@ function plotPDFTemperature() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotPDFPressure() {
 	var data = <%= pDFOfPressure %>;
+	var nd = <%= normalDistributionOfPressure %>;
 	
-	$.plot($("#pdf-pressure"),[ data ],{
+	$.plot($("#pdf-pressure"),[ data, nd ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -417,10 +424,11 @@ function plotPDFPressure() {
 			points: {show: false},
 			curvedLines: {
 				active: true,
-				apply: true				
+				apply: true,
+				tension: 1.0
 			},
 		},
-		colors: ["#2a9e3a"],
+		colors: ["#2a9e3a", "#c6c6c6"],
 		xaxis: {
 			axisLabel: "Pressure",
 			axisLabelPadding: 20,
@@ -439,8 +447,9 @@ function plotPDFPressure() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotPDFFlowRate() {
 	var data = <%= pDFOfFlowRate %>;
+	var nd = <%= normalDistributionOfFlowRate %>;
 	
-	$.plot($("#pdf-flowrate"),[ data ],{
+	$.plot($("#pdf-flowrate"),[ data, nd ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -449,10 +458,11 @@ function plotPDFFlowRate() {
 			points: {show: false},
 			curvedLines: {
 				active: true,
-				apply: true				
+				apply: true,
+				tension: 1.0
 			},
 		},
-		colors: ["#2269cc"],
+		colors: ["#2269cc", "#c6c6c6"],
 		xaxis: {
 			axisLabel: "Flow Rate",
 			axisLabelPadding: 20,

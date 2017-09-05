@@ -50,6 +50,9 @@ public class FactoryMainMachine1_History extends HttpServlet {
 			String pDFOfTemperature = hfd.getPDFOfTemperature();
 			String pDFOfPressure = hfd.getPDFOfPressure();
 			String pDFOfFlowRate = hfd.getPDFOfFlowRate();
+			String normalDistributionOfTemperature = hfd.getNormalDistributionOfTemperature();
+			String normalDistributionOfPressure = hfd.getNormalDistributionOfPressure();
+			String normalDistributionOfFlowRate = hfd.getNormalDistributionOfFlowRate();
 
 			session.setAttribute("temperatureFlotData", temperatureFlotData);
 			session.setAttribute("pressureFlotData", pressureFlotData);
@@ -57,7 +60,10 @@ public class FactoryMainMachine1_History extends HttpServlet {
 			session.setAttribute("pDFOfTemperature", pDFOfTemperature);
 			session.setAttribute("pDFOfPressure", pDFOfPressure);
 			session.setAttribute("pDFOfFlowRate", pDFOfFlowRate);
-			
+			session.setAttribute("normalDistributionOfTemperature", normalDistributionOfTemperature);
+			session.setAttribute("normalDistributionOfPressure", normalDistributionOfPressure);
+			session.setAttribute("normalDistributionOfFlowRate", normalDistributionOfFlowRate);
+						
 			dataLinkedMap = hfd.getDataLinkedMap();
 			session.setAttribute("dataLinkedMap", dataLinkedMap);
 		}

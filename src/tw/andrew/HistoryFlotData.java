@@ -138,6 +138,7 @@ public class HistoryFlotData {
 			doubleStdPressure = sd.evaluate(tempPres);
 			doubleAvgFlowRate = mean.evaluate(tempFlow);
 			doubleStdFlowRate = sd.evaluate(tempFlow);
+			
 		}catch (SQLException se) {
 			System.out.println(se);
 		}
@@ -146,10 +147,6 @@ public class HistoryFlotData {
 	public LinkedList<HashMap<String, String>> getDataLinkedMap() {
 		return dataLinkedMap;
 	}
-	
-	public int getNumberOfData() {
-		return numberOfData;
-	}	
 	
 	// Rewrite the data to a string which fits the data format of Flot.
 	public String getTemperatureFlotData() {				
@@ -388,4 +385,158 @@ public class HistoryFlotData {
 		
 		return pDFOfFlowRate;
 	}
+	
+	// Rewrite the Normal Distribution data to a string which fits the data format of Flot.
+	public String getNormalDistributionOfTemperature() {
+		double mean = doubleAvgTemperature;
+		double sd = 1.0;
+		double x1, x2, x3, x4, x5, x6, x7;
+		double y1, y2, y3, y4, y5, y6, y7;
+		
+		y1 = y2 = y3 = y4 = y5 = y6 = y7 = 0.0;
+		NormalDistribution nd = new NormalDistribution(mean, sd);
+		LinkedList<Object> xList = new LinkedList<Object>();
+		LinkedList<Object> yList = new LinkedList<Object>();
+				
+		x1 = mean - (3 * sd); xList.add(x1);
+		x2 = mean - (2 * sd); xList.add(x2);
+		x3 = mean - (1 * sd); xList.add(x3);
+		x4 = mean;            xList.add(x4);
+		x5 = mean + (1 * sd); xList.add(x5);
+		x6 = mean + (2 * sd); xList.add(x6);
+		x7 = mean + (3 * sd); xList.add(x7);
+				
+		yList.add(y1); yList.add(y2); yList.add(y3);
+		yList.add(y4);
+		yList.add(y5); yList.add(y6); yList.add(y7);		
+		
+		String normalDistributionOfTemperature;
+		String head = "[";
+		String tail = "]";
+		String comma = ",";
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(head);	
+		for (int i = 0; i < xList.size(); i++) {
+			double x = (Double)xList.get(i);
+			double y = (Double)yList.get(i);
+			y = nd.density(x);
+			
+			sb.append(head);
+			sb.append(x);
+			sb.append(comma);
+			sb.append(y);
+			sb.append(tail);
+			sb.append(comma);
+		}
+		sb.deleteCharAt(sb.lastIndexOf(comma));
+		sb.append(tail);
+		
+		normalDistributionOfTemperature = sb.toString();
+		
+		return normalDistributionOfTemperature;
+	}
+
+	// Rewrite the Normal Distribution data to a string which fits the data format of Flot.
+	public String getNormalDistributionOfPressure() {
+		double mean = doubleAvgPressure;
+		double sd = 1.0;
+		double x1, x2, x3, x4, x5, x6, x7;
+		double y1, y2, y3, y4, y5, y6, y7;
+		
+		y1 = y2 = y3 = y4 = y5 = y6 = y7 = 0.0;
+		NormalDistribution nd = new NormalDistribution(mean, sd);
+		LinkedList<Object> xList = new LinkedList<Object>();
+		LinkedList<Object> yList = new LinkedList<Object>();
+				
+		x1 = mean - (3 * sd); xList.add(x1);
+		x2 = mean - (2 * sd); xList.add(x2);
+		x3 = mean - (1 * sd); xList.add(x3);
+		x4 = mean;            xList.add(x4);
+		x5 = mean + (1 * sd); xList.add(x5);
+		x6 = mean + (2 * sd); xList.add(x6);
+		x7 = mean + (3 * sd); xList.add(x7);
+				
+		yList.add(y1); yList.add(y2); yList.add(y3);
+		yList.add(y4);
+		yList.add(y5); yList.add(y6); yList.add(y7);		
+		
+		String normalDistributionOfPressure;
+		String head = "[";
+		String tail = "]";
+		String comma = ",";
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(head);	
+		for (int i = 0; i < xList.size(); i++) {
+			double x = (Double)xList.get(i);
+			double y = (Double)yList.get(i);
+			y = nd.density(x);
+			
+			sb.append(head);
+			sb.append(x);
+			sb.append(comma);
+			sb.append(y);
+			sb.append(tail);
+			sb.append(comma);
+		}
+		sb.deleteCharAt(sb.lastIndexOf(comma));
+		sb.append(tail);
+		
+		normalDistributionOfPressure = sb.toString();
+		
+		return normalDistributionOfPressure;
+	}
+
+	// Rewrite the Normal Distribution data to a string which fits the data format of Flot.
+	public String getNormalDistributionOfFlowRate() {
+		double mean = doubleAvgFlowRate;
+		double sd = 1.0;
+		double x1, x2, x3, x4, x5, x6, x7;
+		double y1, y2, y3, y4, y5, y6, y7;
+		
+		y1 = y2 = y3 = y4 = y5 = y6 = y7 = 0.0;
+		NormalDistribution nd = new NormalDistribution(mean, sd);
+		LinkedList<Object> xList = new LinkedList<Object>();
+		LinkedList<Object> yList = new LinkedList<Object>();
+				
+		x1 = mean - (3 * sd); xList.add(x1);
+		x2 = mean - (2 * sd); xList.add(x2);
+		x3 = mean - (1 * sd); xList.add(x3);
+		x4 = mean;            xList.add(x4);
+		x5 = mean + (1 * sd); xList.add(x5);
+		x6 = mean + (2 * sd); xList.add(x6);
+		x7 = mean + (3 * sd); xList.add(x7);
+				
+		yList.add(y1); yList.add(y2); yList.add(y3);
+		yList.add(y4);
+		yList.add(y5); yList.add(y6); yList.add(y7);		
+		
+		String normalDistributionOfFlowRate;
+		String head = "[";
+		String tail = "]";
+		String comma = ",";
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(head);	
+		for (int i = 0; i < xList.size(); i++) {
+			double x = (Double)xList.get(i);
+			double y = (Double)yList.get(i);
+			y = nd.density(x);
+			
+			sb.append(head);
+			sb.append(x);
+			sb.append(comma);
+			sb.append(y);
+			sb.append(tail);
+			sb.append(comma);
+		}
+		sb.deleteCharAt(sb.lastIndexOf(comma));
+		sb.append(tail);
+		
+		normalDistributionOfFlowRate = sb.toString();
+		
+		return normalDistributionOfFlowRate;
+	}
+
 }
