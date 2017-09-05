@@ -26,15 +26,16 @@ public class SaveFile extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		LinkedList<HashMap<String, String>> dataLinkedMap = (LinkedList<HashMap<String, String>>)session.getAttribute("dataLinkedMap");
 		StringBuffer sb = new StringBuffer();
-		sb = sb.append("Date").append(", ").append("Time").append(", ").append("Temperature").append(", ").append("Pressure").append(", ").append("FlowRate").append("\n");
+		sb = sb.append("Machine").append(", ").append("Date").append(", ").append("Time").append(", ").append("Temperature").append(", ").append("Pressure").append(", ").append("FlowRate").append("\n");
 		
 		for (int i = 0; i < dataLinkedMap.size(); i++) {
+			String machine = dataLinkedMap.get(i).get("machine");
 			String date = dataLinkedMap.get(i).get("date");
 			String time = dataLinkedMap.get(i).get("time");
 			String temperature = dataLinkedMap.get(i).get("temperature");
 			String pressure = dataLinkedMap.get(i).get("pressure");
 			String flowrate = dataLinkedMap.get(i).get("flowrate");	
-			sb = sb.append(date).append(",").append(time).append(",").append(temperature).append(",").append(pressure).append(",").append(flowrate).append("\n");
+			sb = sb.append(machine).append(",").append(date).append(",").append(time).append(",").append(temperature).append(",").append(pressure).append(",").append(flowrate).append("\n");
 		}
 		
 		String data = sb.toString();
