@@ -33,21 +33,7 @@
 					<span class = "icon-bar"></span>
 				</button>
 				<a class = "navbar-brand glyphicon glyphicon-home" href = "FactoryMainPage"></a>
-			</div>
-			
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class = "nav navbar-nav" style = "font-size:16px">
-					<li>
-						<a href = "#">PAGE 1</a>	
-					</li>
-					<li>
-						<a href = "#">PAGE 2</a>
-					</li>
-					<li>
-						<a href = "#">PAGE 3</a>
-					</li>
-				</ul>
-			</div>
+			</div>			
 		</div>
 	</nav>
 	
