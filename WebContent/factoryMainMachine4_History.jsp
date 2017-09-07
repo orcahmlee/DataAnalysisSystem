@@ -128,13 +128,13 @@
 	        		<div class = "col-md-3" align = "left">
 	        			<div class = "form-group">
 		    				<label class="control-label">HOUR:</label>&nbsp;
-		    				<input class = "form-control" type = "text" size = "2" id = "start-input-hour" name = startHour required>
+		    				<input class = "form-control" type = "text" size = "3" id = "start-input-hour" onchange = "regExpCheckHour()" name = startHour required>
 		    			</div>
 	     		</div>
 	        		<div class = "col-md-3" align = "left">	
 	    		    		<div class = "form-group">
 	    		    			<label>MINUTE:</label>&nbsp;
-	    		    			<input class = "form-control" type = "text" size = "2" id = "start-input-minute" name = startMinute required>    					
+	    		    			<input class = "form-control" type = "text" size = "3" id = "start-input-minute" onchange = "regExpCheckMinute()" name = startMinute required>    					
 	    		    		</div>
 	        		</div>
 	        		<div class = "col-md-2">
@@ -159,13 +159,13 @@
 	        		<div class = "col-md-3" align = "left">
 	        			<div class = "form-group">
 		    				<label class="control-label">HOUR:</label>&nbsp;
-		    				<input class = "form-control" type = "text" size = "2" id = "end-input-hour" onchange = "checkHour()" name = "endHour" required>		    					    				
+		    				<input class = "form-control" type = "text" size = "3" id = "end-input-hour" onchange = "checkHour()" name = "endHour" required>		    					    				
 		    			</div>
 	        		</div>
 	        		<div class = "col-md-3" align = "left">	
 	    		   		<div class = "form-group">
 	    		    			<label class="control-label">MINUTE:</label>&nbsp;
-	    		    			<input class = "form-control" type = "text" size = "2" id = "end-input-minute" onchange = "checkMinute()" name = "endMinute" required>
+	    		    			<input class = "form-control" type = "text" size = "3" id = "end-input-minute" onchange = "checkMinute()" name = "endMinute" required>
 	    		    		</div>
 	        		</div>
 	        		<div class = "col-md-2" align = "center">
@@ -528,8 +528,9 @@ function checkDate() {
 	}
 }
 		 
-// Prevent users choose the wrong hour of interval.
-// Put the selected value into the input box.
+//Prevent users choose the wrong hour of interval.
+//Put the selected value into the input box.
+//Check the input text by Regular Expression.
 function checkHour() {
 	var startDate = $("#start-datepicker").val();
 	var endDate = $("#end-datepicker").val();
@@ -541,11 +542,23 @@ function checkHour() {
 		}else {
 			$("#checkResult").text("");
 		}
+	}
+
+	var endHH = $("#end-input-hour").val();
+	var pattern = /\D/g;
+	var result = pattern.test(endHH);
+	if (result){
+		$("#checkResult").text("Please Input Numbers!");
+	}else if (endHH.length > 2){
+		$("#checkResult").text("Please Check the Fromat!");
+	}else {
+		$("#checkResult").text("");		
 	}	
 }
 
 // Prevent users choose the wrong minute of interval.
 // Put the selected value into the input box.
+// Check the input text by Regular Expression.
 function checkMinute() {
 	var startDate = $("#start-datepicker").val();
 	var endDate = $("#end-datepicker").val();
@@ -564,7 +577,49 @@ function checkMinute() {
 			}
 		}
 	}
+
+	var endMM = $("#end-input-minute").val();
+	var pattern = /\D/g;
+	var result = pattern.test(endMM);
+	if (result){
+		$("#checkResult").text("Please Input Numbers!");
+	}else if (endMM.length > 2){
+		$("#checkResult").text("Please Check the Fromat!");
+	}else {
+		$("#checkResult").text("");		
+	}	
 }
+
+//Check the input text by Regular Expression.
+function regExpCheckHour() {
+	var startHour = $("#start-input-hour").val();
+	var pattern = /\D/g;
+	var result = pattern.test(startHour);
+	
+	if (result){
+		$("#checkResult").text("Please Input Numbers!");
+	}else if (startHour.length > 2){
+		$("#checkResult").text("Please Check the Fromat!");
+	}else {
+		$("#checkResult").text("");
+	}
+}
+
+//Check the input text by Regular Expression.
+function regExpCheckMinute() {
+	var startMinute = $("#start-input-minute").val();
+	var pattern = /\D/g;
+	var result = pattern.test(startMinute);
+	
+	if (result){
+		$("#checkResult").text("Please Input Numbers!");
+	}else if (startMinute.length > 2){
+		$("#checkResult").text("Please Check the Fromat!");
+	}else {
+		$("#checkResult").text("");
+	}
+}
+
 </script>
 
 </body>
