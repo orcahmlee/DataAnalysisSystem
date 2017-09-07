@@ -32,7 +32,7 @@ public class HistoryFlotData {
 	private double doubleStdFlowRate;
 	
 	HistoryFlotData(String equipment, String startDate, String endDate, String startHour, String endHour, String startMinute, String endMinute) {
-		this.equipment = equipment; // The name of Machine		
+		this.equipment = equipment; // The name of Machine	
 		this.startDate = startDate;		
 		this.endDate = endDate;
 		
