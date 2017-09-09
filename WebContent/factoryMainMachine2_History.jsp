@@ -529,76 +529,75 @@ function checkDate() {
 }
 		 
 //Prevent users choose the wrong hour of interval.
-//Put the selected value into the input box.
 //Check the input text by Regular Expression.
 function checkHour() {
-	var startDate = $("#start-datepicker").val();
-	var endDate = $("#end-datepicker").val();
-	var startHour = parseInt($("#start-input-hour").val());
-	var endHour = parseInt($("#end-input-hour").val());
-	if (endDate == startDate) {
-		if (endHour < startHour) {
+	var strStartDate = $("#start-datepicker").val();
+	var strEndDate = $("#end-datepicker").val();
+	var intStartHour = parseInt($("#start-input-hour").val());
+	var intEndHour = parseInt($("#end-input-hour").val());
+	
+	var strStartHour = $("#end-input-hour").val();
+	var pattern = /\D/g;
+	var result = pattern.test(strStartHour);
+	
+	if (strEndDate == strStartDate) {
+		if (intEndHour < intStartHour) {
 			$("#checkResult").text("Please Check the Hour of Interval!");
 		}else {
-			$("#checkResult").text("");
-		}
-	}
-
-	var endHH = $("#end-input-hour").val();
-	var pattern = /\D/g;
-	var result = pattern.test(endHH);
-	if (result){
-		$("#checkResult").text("Please Input Numbers!");
-	}else if (endHH.length > 2){
-		$("#checkResult").text("Please Check the Fromat!");
-	}else {
-		$("#checkResult").text("");		
-	}	
-}
-
-// Prevent users choose the wrong minute of interval.
-// Put the selected value into the input box.
-// Check the input text by Regular Expression.
-function checkMinute() {
-	var startDate = $("#start-datepicker").val();
-	var endDate = $("#end-datepicker").val();
-	var startHour = parseInt($("#start-input-hour").val());
-	var endHour = parseInt($("#end-input-hour").val());
-	var startMinute = parseInt($("#start-input-minute").val());
-	var endMinute = parseInt($("#end-input-minute").val());
-	if (endDate == startDate) {
-		if (endHour == startHour) {
-			if (endMinute < startMinute) {
-				$("#checkResult").text("Please Check the Minute of Interval!");
-			}else if (endMinute == startMinute){
-				$("#checkResult").text("Please Check the Time Interval!");
+			if (result){
+				$("#checkResult").text("Please Input Numbers!");
+			}else if (intEndHour > 23){
+				$("#checkResult").text("Please Check the Fromat!");
 			}else {
-				$("#checkResult").text("");
+				$("#checkResult").text("");	
 			}
 		}
 	}
+}
 
-	var endMM = $("#end-input-minute").val();
+//Prevent users choose the wrong minute of interval.
+//Check the input text by Regular Expression.
+function checkMinute() {
+	var strStartDate = $("#start-datepicker").val();
+	var strEndDate = $("#end-datepicker").val();
+	var intStartHour = parseInt($("#start-input-hour").val());
+	var intEndHour = parseInt($("#end-input-hour").val());
+	var intStartMinute = parseInt($("#start-input-minute").val());
+	var intEndMinute = parseInt($("#end-input-minute").val());
+
+	var strEndMinute = $("#end-input-minute").val();
 	var pattern = /\D/g;
-	var result = pattern.test(endMM);
-	if (result){
-		$("#checkResult").text("Please Input Numbers!");
-	}else if (endMM.length > 2){
-		$("#checkResult").text("Please Check the Fromat!");
-	}else {
-		$("#checkResult").text("");		
-	}	
+	var result = pattern.test(strEndMinute);	
+	
+	if (strEndDate == strStartDate) {
+		if (intEndHour == intStartHour) {
+			if (intEndMinute < intStartMinute) {
+				$("#checkResult").text("Please Check the Minute of Interval!");
+			}else if (intEndMinute == intStartMinute){
+				$("#checkResult").text("Please Check the Time Interval!");
+			}else {
+				if (result){
+					$("#checkResult").text("Please Input Numbers!");
+				}else if (intEndMinute > 59){
+					$("#checkResult").text("Please Check the Fromat!");
+				}else {
+					$("#checkResult").text("");		
+				}
+			}
+		}
+	}
 }
 
 //Check the input text by Regular Expression.
 function regExpCheckHour() {
-	var startHour = $("#start-input-hour").val();
+	var strStartHour = $("#start-input-hour").val();
+	var intStartHour = parseInt($("#start-input-hour").val());
 	var pattern = /\D/g;
-	var result = pattern.test(startHour);
+	var result = pattern.test(strStartHour);
 	
 	if (result){
 		$("#checkResult").text("Please Input Numbers!");
-	}else if (startHour.length > 2){
+	}else if (intStartHour > 23){
 		$("#checkResult").text("Please Check the Fromat!");
 	}else {
 		$("#checkResult").text("");
@@ -607,13 +606,14 @@ function regExpCheckHour() {
 
 //Check the input text by Regular Expression.
 function regExpCheckMinute() {
-	var startMinute = $("#start-input-minute").val();
+	var strStartMinute = $("#start-input-minute").val();
+	var intStartMinute = parseInt($("#start-input-minute").val());
 	var pattern = /\D/g;
-	var result = pattern.test(startMinute);
+	var result = pattern.test(strStartMinute);
 	
 	if (result){
 		$("#checkResult").text("Please Input Numbers!");
-	}else if (startMinute.length > 2){
+	}else if (intStartMinute > 59){
 		$("#checkResult").text("Please Check the Fromat!");
 	}else {
 		$("#checkResult").text("");
