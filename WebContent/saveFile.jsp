@@ -15,7 +15,17 @@
     </style>	
 </head>
 <body>
-File Already Be Saved, Reload in 3 seconds...!
+
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-sm-12" align = "center">
+				<h3>
+					File Already Be Saved, Reload in 3 seconds...!
+				</h3>
+			</div>
+		</div>
+	</div>
+
 
 <script type = 'text/javascript'>
 function redirect() {

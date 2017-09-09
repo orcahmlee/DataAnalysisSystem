@@ -15,15 +15,25 @@
 </head>
 <body>
 <%
-	boolean result = (boolean)request.getAttribute("result");
+	//boolean result = (boolean)request.getAttribute("result");
+	boolean result = true;
 %>
 
-<%	if (result){%>
-		Register Success, Reload in 3 seconds...!
-<%	}else {%>
-		Register Failure! <br>
-		Please Register Again! <br>
-<%	}%>
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-sm-12" align = "center">
+				<h3>
+					<%	if (result){ %>
+							Register Success, Reload in 3 seconds...!
+					<%	}else { %>
+							Register Failure! <br>
+							Please Register Again! <br>
+					<%	} %>
+				</h3>
+			</div>
+		</div>
+	</div>
+
 
 <script type = 'text/javascript'>
 function redirect() {
