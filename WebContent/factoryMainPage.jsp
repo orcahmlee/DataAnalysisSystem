@@ -14,30 +14,18 @@
 	String m1Temperature = (String)session.getAttribute("m1Temperature");
 	String m1Pressure = (String)session.getAttribute("m1Pressure");
 	String m1FlowRate = (String)session.getAttribute("m1FlowRate");
-	String m1NormalDistributionOfTemperature = (String)session.getAttribute("m1NormalDistributionOfTemperature");
-	String m1NormalDistributionOfPressure = (String)session.getAttribute("m1NormalDistributionOfPressure");
-	String m1NormalDistributionOfFlowRate = (String)session.getAttribute("m1NormalDistributionOfFlowRate");
 
 	String m2Temperature = (String)session.getAttribute("m2Temperature");
 	String m2Pressure = (String)session.getAttribute("m2Pressure");
 	String m2FlowRate = (String)session.getAttribute("m2FlowRate");
-	String m2NormalDistributionOfTemperature = (String)session.getAttribute("m2NormalDistributionOfTemperature");
-	String m2NormalDistributionOfPressure = (String)session.getAttribute("m2NormalDistributionOfPressure");
-	String m2NormalDistributionOfFlowRate = (String)session.getAttribute("m2NormalDistributionOfFlowRate");
 
 	String m3Temperature = (String)session.getAttribute("m3Temperature");
 	String m3Pressure = (String)session.getAttribute("m3Pressure");
 	String m3FlowRate = (String)session.getAttribute("m3FlowRate");
-	String m3NormalDistributionOfTemperature = (String)session.getAttribute("m3NormalDistributionOfTemperature");
-	String m3NormalDistributionOfPressure = (String)session.getAttribute("m3NormalDistributionOfPressure");
-	String m3NormalDistributionOfFlowRate = (String)session.getAttribute("m3NormalDistributionOfFlowRate");
 
 	String m4Temperature = (String)session.getAttribute("m4Temperature");
 	String m4Pressure = (String)session.getAttribute("m4Pressure");
 	String m4FlowRate = (String)session.getAttribute("m4FlowRate");
-	String m4NormalDistributionOfTemperature = (String)session.getAttribute("m4NormalDistributionOfTemperature");
-	String m4NormalDistributionOfPressure = (String)session.getAttribute("m4NormalDistributionOfPressure");
-	String m4NormalDistributionOfFlowRate = (String)session.getAttribute("m4NormalDistributionOfFlowRate");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -261,9 +249,11 @@ $('.m4.circle').circleProgress({
 //The function that plot the PDF chart according to the data which select from user.
 function plotM1Temperature() {
 	var data = <%= m1Temperature %>;
-	var nd = <%= m1NormalDistributionOfTemperature %>;
+	var sp = [ [200,0],[200, 0.4] ];			// Set Point
+	var lsl = [ [195,0],[195, 0.4] ];		// Lower Specification Limit
+	var usl = [ [205,0],[205, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m1-temperature"),[ data, nd ],{
+	$.plot($("#m1-temperature"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -276,7 +266,7 @@ function plotM1Temperature() {
 				tension: 1.0
 			},
 		},
-		colors: ["#ff0000", "#c6c6c6"],
+		colors: ["#ff0000", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Temperature",
 			axisLabelPadding: 20,
@@ -295,9 +285,11 @@ function plotM1Temperature() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM1Pressure() {
 	var data = <%= m1Pressure %>;
-	var nd = <%= m1NormalDistributionOfPressure %>;
+	var sp = [ [101.3,0],[101.3, 0.4] ];			// Set Point
+	var lsl = [ [98.8,0],[98.8, 0.4] ];			// Lower Specification Limit
+	var usl = [ [103.8,0],[103.8, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m1-pressure"),[ data, nd ],{
+	$.plot($("#m1-pressure"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -310,7 +302,7 @@ function plotM1Pressure() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2a9e3a", "#c6c6c6"],
+		colors: ["#2a9e3a", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Pressure",
 			axisLabelPadding: 20,
@@ -329,9 +321,11 @@ function plotM1Pressure() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM1FlowRate() {
 	var data = <%= m1FlowRate %>;
-	var nd = <%= m1NormalDistributionOfFlowRate %>;
+	var sp = [ [100,0],[100, 0.4] ];				// Set Point
+	var lsl = [ [97.5,0],[97.5, 0.4] ];			// Lower Specification Limit
+	var usl = [ [102.5,0],[102.5, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m1-flowrate"),[ data, nd ],{
+	$.plot($("#m1-flowrate"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -344,7 +338,7 @@ function plotM1FlowRate() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2269cc", "#c6c6c6"],
+		colors: ["#2269cc", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Flow Rate",
 			axisLabelPadding: 20,
@@ -363,9 +357,11 @@ function plotM1FlowRate() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM2Temperature() {
 	var data = <%= m2Temperature %>;
-	var nd = <%= m2NormalDistributionOfTemperature %>;
+	var sp = [ [200,0],[200, 0.4] ];			// Set Point
+	var lsl = [ [195,0],[195, 0.4] ];		// Lower Specification Limit
+	var usl = [ [205,0],[205, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m2-temperature"),[ data, nd ],{
+	$.plot($("#m2-temperature"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -378,7 +374,7 @@ function plotM2Temperature() {
 				tension: 1.0
 			},
 		},
-		colors: ["#ff0000", "#c6c6c6"],
+		colors: ["#ff0000", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Temperature",
 			axisLabelPadding: 20,
@@ -397,9 +393,11 @@ function plotM2Temperature() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM2Pressure() {
 	var data = <%= m2Pressure %>;
-	var nd = <%= m2NormalDistributionOfPressure %>;
+	var sp = [ [101.3,0],[101.3, 0.4] ];			// Set Point
+	var lsl = [ [98.8,0],[98.8, 0.4] ];			// Lower Specification Limit
+	var usl = [ [103.8,0],[103.8, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m2-pressure"),[ data, nd ],{
+	$.plot($("#m2-pressure"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -412,7 +410,7 @@ function plotM2Pressure() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2a9e3a", "#c6c6c6"],
+		colors: ["#2a9e3a", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Pressure",
 			axisLabelPadding: 20,
@@ -431,9 +429,11 @@ function plotM2Pressure() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM2FlowRate() {
 	var data = <%= m2FlowRate %>;
-	var nd = <%= m2NormalDistributionOfFlowRate %>;
+	var sp = [ [100,0],[100, 0.4] ];				// Set Point
+	var lsl = [ [97.5,0],[97.5, 0.4] ];			// Lower Specification Limit
+	var usl = [ [102.5,0],[102.5, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m2-flowrate"),[ data, nd ],{
+	$.plot($("#m2-flowrate"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -446,7 +446,7 @@ function plotM2FlowRate() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2269cc", "#c6c6c6"],
+		colors: ["#2269cc", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Flow Rate",
 			axisLabelPadding: 20,
@@ -465,9 +465,11 @@ function plotM2FlowRate() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM3Temperature() {
 	var data = <%= m3Temperature %>;
-	var nd = <%= m3NormalDistributionOfTemperature %>;
+	var sp = [ [200,0],[200, 0.4] ];			// Set Point
+	var lsl = [ [195,0],[195, 0.4] ];		// Lower Specification Limit
+	var usl = [ [205,0],[205, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m3-temperature"),[ data, nd ],{
+	$.plot($("#m3-temperature"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -480,7 +482,7 @@ function plotM3Temperature() {
 				tension: 1.0
 			},
 		},
-		colors: ["#ff0000", "#c6c6c6"],
+		colors: ["#ff0000", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Temperature",
 			axisLabelPadding: 20,
@@ -499,9 +501,11 @@ function plotM3Temperature() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM3Pressure() {
 	var data = <%= m3Pressure %>;
-	var nd = <%= m3NormalDistributionOfPressure %>;
+	var sp = [ [101.3,0],[101.3, 0.4] ];			// Set Point
+	var lsl = [ [98.8,0],[98.8, 0.4] ];			// Lower Specification Limit
+	var usl = [ [103.8,0],[103.8, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m3-pressure"),[ data, nd ],{
+	$.plot($("#m3-pressure"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -514,7 +518,7 @@ function plotM3Pressure() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2a9e3a", "#c6c6c6"],
+		colors: ["#2a9e3a", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Pressure",
 			axisLabelPadding: 20,
@@ -533,9 +537,11 @@ function plotM3Pressure() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM3FlowRate() {
 	var data = <%= m3FlowRate %>;
-	var nd = <%= m3NormalDistributionOfFlowRate %>;
+	var sp = [ [100,0],[100, 0.4] ];				// Set Point
+	var lsl = [ [97.5,0],[97.5, 0.4] ];			// Lower Specification Limit
+	var usl = [ [102.5,0],[102.5, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m3-flowrate"),[ data, nd ],{
+	$.plot($("#m3-flowrate"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -548,7 +554,7 @@ function plotM3FlowRate() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2269cc", "#c6c6c6"],
+		colors: ["#2269cc", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Flow Rate",
 			axisLabelPadding: 20,
@@ -567,9 +573,11 @@ function plotM3FlowRate() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM4Temperature() {
 	var data = <%= m4Temperature %>;
-	var nd = <%= m4NormalDistributionOfTemperature %>;
+	var sp = [ [200,0],[200, 0.4] ];			// Set Point
+	var lsl = [ [195,0],[195, 0.4] ];		// Lower Specification Limit
+	var usl = [ [205,0],[205, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m4-temperature"),[ data, nd ],{
+	$.plot($("#m4-temperature"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -582,7 +590,7 @@ function plotM4Temperature() {
 				tension: 1.0
 			},
 		},
-		colors: ["#ff0000", "#c6c6c6"],
+		colors: ["#ff0000", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Temperature",
 			axisLabelPadding: 20,
@@ -593,7 +601,7 @@ function plotM4Temperature() {
 			axisLabel: "Density",
 			axisLabelUseCanvas: true,
 			axisLabelPadding: 10,
-			axisLabelFontSizePixels: 16
+			axisLabelFontSizePixels: 16			
 		}
 	});
 };
@@ -601,9 +609,11 @@ function plotM4Temperature() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM4Pressure() {
 	var data = <%= m4Pressure %>;
-	var nd = <%= m4NormalDistributionOfPressure %>;
+	var sp = [ [101.3,0],[101.3, 0.4] ];			// Set Point
+	var lsl = [ [98.8,0],[98.8, 0.4] ];			// Lower Specification Limit
+	var usl = [ [103.8,0],[103.8, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m4-pressure"),[ data, nd ],{
+	$.plot($("#m4-pressure"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -616,7 +626,7 @@ function plotM4Pressure() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2a9e3a", "#c6c6c6"],
+		colors: ["#2a9e3a", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Pressure",
 			axisLabelPadding: 20,
@@ -635,9 +645,11 @@ function plotM4Pressure() {
 //The function that plot the PDF chart according to the data which select from user.
 function plotM4FlowRate() {
 	var data = <%= m4FlowRate %>;
-	var nd = <%= m4NormalDistributionOfFlowRate %>;
+	var sp = [ [100,0],[100, 0.4] ];				// Set Point
+	var lsl = [ [97.5,0],[97.5, 0.4] ];			// Lower Specification Limit
+	var usl = [ [102.5,0],[102.5, 0.4] ];		// Upper Specification Limit
 	
-	$.plot($("#m4-flowrate"),[ data, nd ],{
+	$.plot($("#m4-flowrate"),[ data, sp, lsl, usl ],{
 	    series: {
 		    lines: {
 				show: true,
@@ -650,7 +662,7 @@ function plotM4FlowRate() {
 				tension: 1.0
 			},
 		},
-		colors: ["#2269cc", "#c6c6c6"],
+		colors: ["#2269cc", "#ffbf00", "#ffbf00", "#ffbf00"],
 		xaxis: {
 			axisLabel: "Flow Rate",
 			axisLabelPadding: 20,
