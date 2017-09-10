@@ -20,9 +20,9 @@ class Pressure {
 	
 	String getPressure() {
 		if ( (int)(Math.random()*2) == 1) { // Set Point + Range
-			tempPres = presSetPoint + presRange;		
+			tempPres = presSetPoint - 1.0 + presRange;		
 		}else { // Set Point - Range
-			tempPres = presSetPoint - presRange;		
+			tempPres = presSetPoint - 1.0 - presRange;		
 		}
 		BigDecimal pres = new BigDecimal(tempPres).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
 		String pressure = pres.toString();
