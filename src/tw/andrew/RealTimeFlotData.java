@@ -33,10 +33,16 @@ public class RealTimeFlotData {
 	private double doubleStdFlowRate;
 	private String avgTemperature;
 	private String stdTemperature;
+	private String cpkOfTemperature;
+	private String caOfTemperature;
 	private String avgPressure;
 	private String stdPressure;
+	private String cpkOfPressure;
+	private String caOfPressure;
 	private String avgFlowRate;
 	private String stdFlowRate;
+	private String cpkOfFlowRate;
+	private String caOfFlowRate;
 	
 	RealTimeFlotData(String equipment, int minute) {
 		this.equipment = equipment; // The name of Machine
@@ -241,6 +247,33 @@ public class RealTimeFlotData {
 		
 		return stdTemperature;
 	}
+
+	// Calculating the "Ca" of the data.
+	public String getCaOfTemperature() {
+		final double centerOfSpec = 200.0;
+		final double lsl = 195.0;
+		final double usl = 205.0;
+		double ca = (doubleAvgTemperature - centerOfSpec)/(usl - lsl);
+		ca = Math.abs(ca) * 100; // Convert to %.
+		BigDecimal temp = new BigDecimal(ca).setScale(2, BigDecimal.ROUND_HALF_UP); // 取小數點後第二位，四捨五入
+		caOfTemperature = temp.toString();
+		
+		return caOfTemperature;
+	}
+	
+	// Calculating the "CPK" of the data.
+	public String getCpkOfTemperature() {
+		final double centerOfSpec = 200.0;
+		final double lsl = 195.0;
+		final double usl = 205.0;
+		double ca = (doubleAvgTemperature - centerOfSpec)/(usl - lsl);
+		double cp = (usl - lsl)/(6 * doubleStdTemperature);
+		double cpk = cp * (1 - ca);
+		BigDecimal temp = new BigDecimal(cpk).setScale(2, BigDecimal.ROUND_HALF_UP);
+		cpkOfTemperature = temp.toString();
+		
+		return cpkOfTemperature;
+	}
 	
 	public String getAvgPressure() {
 		BigDecimal temp = new BigDecimal(doubleAvgPressure).setScale(1, BigDecimal.ROUND_HALF_UP); // 取小數點後第一位，四捨五入
@@ -254,6 +287,33 @@ public class RealTimeFlotData {
 		stdPressure = temp.toString();
 		
 		return stdPressure;
+	}
+
+	// Calculating the "Ca" of the data.
+	public String getCaOfPressure() {
+		final double centerOfSpec = 101.3;
+		final double lsl = 98.8;
+		final double usl = 103.8;
+		double ca = (doubleAvgPressure - centerOfSpec)/(usl - lsl);
+		ca = Math.abs(ca) * 100; // Convert to %.
+		BigDecimal temp = new BigDecimal(ca).setScale(2, BigDecimal.ROUND_HALF_UP); // 取小數點後第二位，四捨五入
+		caOfPressure = temp.toString();
+		
+		return caOfPressure;
+	}
+	
+	// Calculating the "CPK" of the data.
+	public String getCpkOfPressure() {
+		final double centerOfSpec = 101.3;
+		final double lsl = 98.8;
+		final double usl = 103.8;
+		double ca = (doubleAvgPressure - centerOfSpec)/(usl - lsl);
+		double cp = (usl - lsl)/(6 * doubleStdPressure);
+		double cpk = cp * (1 - ca);
+		BigDecimal temp = new BigDecimal(cpk).setScale(2, BigDecimal.ROUND_HALF_UP);
+		cpkOfPressure = temp.toString();
+		
+		return cpkOfPressure;
 	}
 	
 	public String getAvgFlowRate() {
@@ -269,4 +329,32 @@ public class RealTimeFlotData {
 
 		return stdFlowRate;
 	}	
+
+	// Calculating the "Ca" of the data.
+	public String getCaOfFlowRate() {
+		final double centerOfSpec = 100.0;
+		final double lsl = 97.5;
+		final double usl = 102.5;
+		double ca = (doubleAvgFlowRate - centerOfSpec)/(usl - lsl);
+		ca = Math.abs(ca) * 100; // Convert to %.
+		BigDecimal temp = new BigDecimal(ca).setScale(2, BigDecimal.ROUND_HALF_UP); // 取小數點後第二位，四捨五入
+		caOfFlowRate = temp.toString();
+		
+		return caOfFlowRate;
+	}
+	
+	// Calculating the "CPK" of the data.
+	public String getCpkOfFlowRate() {
+		final double centerOfSpec = 100.0;
+		final double lsl = 97.5;
+		final double usl = 102.5;
+		double ca = (doubleAvgFlowRate - centerOfSpec)/(usl - lsl);
+		double cp = (usl - lsl)/(6 * doubleStdFlowRate);
+		double cpk = cp * (1 - ca);
+		BigDecimal temp = new BigDecimal(cpk).setScale(2, BigDecimal.ROUND_HALF_UP);
+		cpkOfFlowRate = temp.toString();
+		
+		return cpkOfFlowRate;
+	}
+	
 }

@@ -19,7 +19,13 @@ public class M2TemperatureAnalysisData extends HttpServlet {
 		RealTimeFlotData rtfd = new RealTimeFlotData("M2", 10);
 		String avgTemperature = rtfd.getAvgTemperature();
 		String stdTemperature = rtfd.getStdTemperature();
-		String data = "{" + "\"avgTemperature\"" + ":" + avgTemperature + ", " + "\"stdTemperature\"" + ":" + stdTemperature + "}";
+		String cpkOfTemperature = rtfd.getCpkOfTemperature();
+		String caOfTemperature = rtfd.getCaOfTemperature();
+		String data = "{" + "\"avgTemperature\"" + ":" + avgTemperature + ", " 
+					+ "\"stdTemperature\"" + ":" + stdTemperature + ", "
+					+ "\"cpkOfTemperature\"" + ":" + cpkOfTemperature + ", "
+					+ "\"caOfTemperature\"" + ":" + caOfTemperature + 					
+					"}";
 		
 		out.println(data);
 	}

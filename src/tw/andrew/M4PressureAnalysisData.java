@@ -19,8 +19,14 @@ public class M4PressureAnalysisData extends HttpServlet {
 		RealTimeFlotData rtfd = new RealTimeFlotData("M4", 10);
 		String avgPressure = rtfd.getAvgPressure();
 		String stdPressure = rtfd.getStdPressure();
-		String data = "{" + "\"avgPressure\"" + ":" + avgPressure + ", " + "\"stdPressure\"" + ":" + stdPressure + "}";
-		
+		String cpkOfPressure = rtfd.getCpkOfPressure();
+		String caOfPressure = rtfd.getCaOfPressure();
+		String data = "{" + "\"avgPressure\"" + ":" + avgPressure + ", " 
+					+ "\"stdPressure\"" + ":" + stdPressure + ", "
+					+ "\"cpkOfPressure\"" + ":" + cpkOfPressure + ", "
+					+ "\"caOfPressure\"" + ":" + caOfPressure +
+					"}";
+
 		out.println(data);
 
 	}

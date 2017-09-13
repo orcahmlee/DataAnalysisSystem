@@ -19,7 +19,13 @@ public class M4FlowRateAnalysisData extends HttpServlet {
 		RealTimeFlotData rtfd = new RealTimeFlotData("M4", 10);
 		String avgFlowRate = rtfd.getAvgFlowRate();
 		String stdFlowRate = rtfd.getStdFlowRate();
-		String data = "{" + "\"avgFlowRate\"" + ":" + avgFlowRate + ", " + "\"stdFlowRate\"" + ":" + stdFlowRate + "}";
+		String cpkOfFlowRate = rtfd.getCpkOfFlowRate();
+		String caOfFlowRate = rtfd.getCaOfFlowRate();
+		String data = "{" + "\"avgFlowRate\"" + ":" + avgFlowRate + ", " 
+					+ "\"stdFlowRate\"" + ":" + stdFlowRate + ", "
+					+ "\"cpkOfFlowRate\"" + ":" + cpkOfFlowRate + ", "
+					+ "\"caOfFlowRate\"" + ":" + caOfFlowRate +
+					"}";
 		
 		out.println(data);
 

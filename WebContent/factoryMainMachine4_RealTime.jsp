@@ -128,7 +128,20 @@
 					      <td align = "center" id = "std-temperature"></td>
 					    </tr>
 					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Ca</td>
+					      <td align = "center" id = "ca-temperature"></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Cpk</td>
+					      <td align = "center" id = "cpk-temperature"></td>
+					    </tr>
+					  </tbody>
 					</table>
+					<span id = "light-temperature"></span>
 				</div>
  			</div>
         		<div class = "col-sm-6" align = "center">
@@ -159,7 +172,20 @@
 					      <td align = "center" id = "std-pressure"></td>
 					    </tr>
 					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Ca</td>
+					      <td align = "center" id = "ca-pressure"></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Cpk</td>
+					      <td align = "center" id = "cpk-pressure"></td>
+					    </tr>
+					  </tbody>
 					</table>
+					<span id = "light-pressure"></span>
 				</div>
         		</div>
         		<div class = "col-sm-6" align = "center">
@@ -190,7 +216,20 @@
 					      <td align = "center" id = "std-flowrate"></td>
 					    </tr>
 					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Ca</td>
+					      <td align = "center" id = "ca-flowrate"></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr align = "center">
+					      <td align = "left">Cpk</td>
+					      <td align = "center" id = "cpk-flowrate"></td>
+					    </tr>
+					  </tbody>
 					</table>
+					<span id = "light-flowrate"></span>
 				</div>
         		</div>        	
         	</div>
@@ -405,7 +444,9 @@ function getAnalysisTemperature() {
 			function(data) {
 				var obj = JSON.parse(data);
 				var avg = (obj.avgTemperature).toString();
-				var std = (obj.stdTemperature).toString();
+				var std = (obj.stdTemperature).toString();				
+				var cpk = (obj.cpkOfTemperature).toString();				
+				var ca = (obj.caOfTemperature).toString();
 				
 				if (avg.length < 5){
 					avg = avg + ".0";
@@ -423,8 +464,35 @@ function getAnalysisTemperature() {
 					std = std;
 				}
 				
+				if (cpk.length < 5){
+					cpk = cpk + "0";
+				}else {
+					cpk = cpk;
+				}
+				
+				// Insert the light according to the value of "cpk".
+				var green = '<img src = "pics/green-light.png" alt="Green Light" style="width:64px;height:64px;">';
+				var yellow = '<img src = "pics/yellow-light.png" alt="Yellow Light" style="width:64px;height:64px;">';
+				var red = '<img src = "pics/red-light.png" alt="Red Light" style="width:64px;height:64px;">';
+				
+				if (cpk > 1.33 && ca < 12.5) {
+					$("#light-temperature").html(green);
+				}else {
+					if (cpk < 1.00 || ca > 25.0){
+						$("#light-temperature").html(red);
+						// Insert a function that use Java-mail.
+					}else {
+						$("#light-temperature").html(yellow);
+					}
+				}
+				
+				ca = ca + "%";
+				
 				$("#avg-temperature").html(avg);
 				$("#std-temperature").html(std);
+				$("#cpk-temperature").html(cpk);
+				$("#ca-temperature").html(ca);
+				
 			}
 	);
 }
@@ -436,7 +504,9 @@ function getAnalysisPressure() {
 				var obj = JSON.parse(data);
 				var avg = (obj.avgPressure).toString();
 				var std = (obj.stdPressure).toString();
-				
+				var cpk = (obj.cpkOfPressure).toString();				
+				var ca = (obj.caOfPressure).toString();				
+
 				if (avg.length < 5){
 					avg = avg + ".0";
 				}else {
@@ -453,8 +523,35 @@ function getAnalysisPressure() {
 					std = std;
 				}
 				
+				if (cpk.length < 5){
+					cpk = cpk + "0";
+				}else {
+					cpk = cpk;
+				}
+								
+				// Insert the light according to the value of "cpk" and "ca".
+				var green = '<img src = "pics/green-light.png" alt="Green Light" style="width:64px;height:64px;">';
+				var yellow = '<img src = "pics/yellow-light.png" alt="Yellow Light" style="width:64px;height:64px;">';
+				var red = '<img src = "pics/red-light.png" alt="Red Light" style="width:64px;height:64px;">';
+				
+				if (cpk > 1.33 && ca < 12.5) {
+					$("#light-pressure").html(green);
+				}else {
+					if (cpk < 1.00 || ca > 25.0){
+						$("#light-pressure").html(red);
+						// Insert a function that use Java-mail.
+					}else {
+						$("#light-pressure").html(yellow);
+					}
+				}
+				
+				ca = ca + "%";
+				
 				$("#avg-pressure").html(avg);
 				$("#std-pressure").html(std);
+				$("#cpk-pressure").html(cpk);
+				$("#ca-pressure").html(ca);
+
 			}
 	);
 }
@@ -466,6 +563,8 @@ function getAnalysisFlowRate() {
 				var obj = JSON.parse(data);
 				var avg = (obj.avgFlowRate).toString();
 				var std = (obj.stdFlowRate).toString();
+				var cpk = (obj.cpkOfFlowRate).toString();
+				var ca = (obj.caOfFlowRate).toString();
 				
 				if (avg.length == 3 || avg.length == 2) {
 					avg = avg + ".0";
@@ -480,9 +579,36 @@ function getAnalysisFlowRate() {
 				}else {
 					std = std;
 				}
+
+				if (cpk.length < 5){
+					cpk = cpk + "0";
+				}else {
+					cpk = cpk;
+				}
+								
+				// Insert the light according to the value of "cpk" and "ca".
+				var green = '<img src = "pics/green-light.png" alt="Green Light" style="width:64px;height:64px;">';
+				var yellow = '<img src = "pics/yellow-light.png" alt="Yellow Light" style="width:64px;height:64px;">';
+				var red = '<img src = "pics/red-light.png" alt="Red Light" style="width:64px;height:64px;">';
+				
+				if (cpk > 1.33 && ca < 12.5) {
+					$("#light-flowrate").html(green);
+				}else {
+					if (cpk < 1.00 || ca > 25.0){
+						$("#light-flowrate").html(red);
+						// Insert a function that use Java-mail.
+					}else {
+						$("#light-flowrate").html(yellow);
+					}
+				}
+				
+				ca = ca + "%";
 				
 				$("#avg-flowrate").html(avg);
 				$("#std-flowrate").html(std);
+				$("#cpk-flowrate").html(cpk);
+				$("#ca-flowrate").html(ca);
+				
 			}
 	);
 }
