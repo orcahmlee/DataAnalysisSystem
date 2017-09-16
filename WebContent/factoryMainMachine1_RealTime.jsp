@@ -481,6 +481,7 @@ function getAnalysisTemperature() {
 					if (cpk < 1.00 || ca > 25.0){
 						$("#light-temperature").html(red);
 						// Insert a function that use Java-mail.
+						m1TemperatureAlarm();
 					}else {
 						$("#light-temperature").html(yellow);
 					}
@@ -495,6 +496,24 @@ function getAnalysisTemperature() {
 				
 			}
 	);
+}
+
+// A function that use Java-mail send an alarm-mail to the manager.
+var count = 0;
+function m1TemperatureAlarm() {
+
+	if (count == 0){		// Alarm-mail will be sent when the light turn into red light.
+		$.post(
+				"M1TemperatureAlarm"
+			);
+		count++;
+	}else{
+		if (count == 120){ // Alarm-mail will be sent once in ten minute.
+			count = 0;
+		}else{
+			count++;
+		}
+	}
 }
 
 function getAnalysisPressure() {
