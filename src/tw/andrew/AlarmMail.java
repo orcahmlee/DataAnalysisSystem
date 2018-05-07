@@ -14,7 +14,7 @@ public class AlarmMail {
 	
 	public AlarmMail() {
 		final String username = "datadataplant@gmail.com";
-		final String password = "P@ss0rd001";
+		final String password = "********";
 	
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
