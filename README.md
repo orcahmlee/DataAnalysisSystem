@@ -324,4 +324,4 @@ $$
 [The MIT License](https://opensource.org/licenses/MIT)
 
 ### It's Me
-[![GitHub](https://i.imgur.com/Z6a4rDG.png?1)](https://github.com/orcahmlee) [![LinkedIn](https://i.imgur.com/ajGoSNq.png?1)](https://www.linkedin.com/in/orcahmlee)
+[![GitHub](https://i.imgur.com/Z6a4rDG.png?1)](https://github.com/orcahmlee) [![LinkedIn](https://i.imgur.com/ajGoSNq.png?2)](https://www.linkedin.com/in/orcahmlee)
