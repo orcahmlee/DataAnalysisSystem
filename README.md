@@ -59,8 +59,8 @@
 
 ### Data Generator
 由於我沒辦法取得製造業的真實機器數據，所以利用程式亂數產生的方式來模擬。
-1. 首先，機器常見的數據如時間、溫度、壓力、流量等，針對這些機器的屬性去創建這些物件(Object)。而溫度、壓力等參數通常會有`設定值`及`變化範圍`。例如，你將烘箱設定成 100<sup>。</sup>C，而實際運作時，烘箱溫度卻可能是在 105<sup>。</sup>C~95<sup>。</sup>C 之間遊走。
-	於是乎，我就將這些物件設計成一個`設定值`與一個`變化範圍`，例如 100<sup>。</sup>C 與 5%，接著就由亂數產生 105<sup>。</sup>C~95<sup>。</sup>C 的數據。另外，因為小數點的位數在統計上有著`有效位數`和`精確度`的問題，所以接著再用 [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html) 統一小數點位數。
+1. 首先，機器常見的數據如時間、溫度、壓力、流量等，針對這些機器的屬性去創建這些物件(Object)。而溫度、壓力等參數通常會有`設定值`及`變化範圍`。例如，你將烘箱設定成 100<sup>。</sup>C，而實際運作時，烘箱溫度卻可能是在 105<sup>。</sup>C-95<sup>。</sup>C 之間遊走。
+	於是乎，我就將這些物件設計成一個`設定值`與一個`變化範圍`，例如 100<sup>。</sup>C 與 5%，接著就由亂數產生 105<sup>。</sup>C-95<sup>。</sup>C 的數據。另外，因為小數點的位數在統計上有著`有效位數`和`精確度`的問題，所以接著再用 [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html) 統一小數點位數。
 2. 接著我再創建一個物件 **Information**，先讓這個物件繼承 [TimerTask](https://docs.oracle.com/javase/7/docs/api/java/util/TimerTask.html)，然後將剛剛的那些物件放進來，之後利用 [JDBC](http://www.oracle.com/technetwork/java/overview-141217.html) 連接 [MySQL](https://www.mysql.com/)，並且將數據寫入資料庫中。
 3. 最後，我再用一個 **Machine** 物件，將剛剛的 **Information** 包起來，並且繼承 [Thread](https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html)。
 
