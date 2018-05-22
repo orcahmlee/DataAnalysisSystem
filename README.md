@@ -102,7 +102,7 @@ public static void main(String[] args) {
 #### 母體標準差(Population Standard Deviation):
 當整個群體中有 ![](https://chart.googleapis.com/chart?cht=tx&chl=$n$) 個樣本，而且每個樣本的值為 ![](https://chart.googleapis.com/chart?cht=tx&chl=$x_1,%20x_2,...,x_n$) ，再而且群體中的每一筆資料皆可取得時，就適用於母體標準差。例如：假設向日葵小班有 10 名小朋友，其中每位小朋友的年齡分別是 {3, 5, 4, 5, 3, 3, 5, 4, 5, 3}，帶入以下的公式即可得年齡標準差(![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma%20=%200.8944271909999159$))。
 
-![SD](https://chart.googleapis.com/chart?cht=tx&chl=$$\sigma%20=%20\frac{1}{n}\sqrt{%20\sum\limits_{i=1}^{n}(x_i%20-%20\mu)^2%20}$$)
+![SD](https://chart.googleapis.com/chart?cht=tx&chl=$$\sigma%20=%20\frac{1}{n}\sqrt{\sum\limits_{i=1}^{n}(x_i%20-%20\mu)^2}$$)
 
 Where:
 - ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma$) is the standard deviation
