@@ -112,7 +112,7 @@ Where:
 若我們關心的群體很大，通常是無法取得群體中的每一筆資料，而且為了減少調查成本與增加效率，常會使用抽樣(Sampling)的方式取得樣本，希望以樣本資料來代表整個群體。但是畢竟母體資料與樣本資料仍是有差異的，因此利用樣本標準差來代表母體標準差的**估計值**。
 例如：希望取得全國大學生的平均身高與其標準差時，是很難實際量測每一個人的身高，因此可以藉由抽樣的方式，在整個群體中抽取出 ![](https://chart.googleapis.com/chart?cht=tx&chl=$n$) 個樣本，並帶入以下公式。
 
-![](https://chart.googleapis.com/chart?cht=tx&chl=$$s%20=%20\frac{1}{n-1}\sqrt{%20\sum\limits_{i=1}^{n}(x_i%20-%20\bar{x})^2%20}$$)
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$s%20=%20\frac{1}{n-1}\sqrt{\sum\limits_{i=1}^{n}(x_i%20-%20\bar{x})^2}$$)
 
 Where:
 - ![](https://chart.googleapis.com/chart?cht=tx&chl=$s$) is the standard deviation
