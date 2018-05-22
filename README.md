@@ -19,9 +19,7 @@
 
 於是乎，我想寫出一個小系統 (Web Application) 可以讓工程師能夠在螢幕前看到設備的即時資訊、歷史資訊及統計分析的資料，進而做出判斷；如此才能夠從 ***Experience-Driven*** 的控制方法轉換成 ***Data-Driven***，如下圖。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/muaclgw.png?2' width='90%'/>
-</div>
+<img src='https://i.imgur.com/muaclgw.png?2' width='90%'/>
 <br>
 
 1. 首先，將生產線上的機器所產生的數據定時地傳送至資料庫。
@@ -68,27 +66,21 @@
 
 看起來好複雜:sweat:，請搭配下面的圖服用～
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/fvst9Xo.gif' width='90%'/>
-</div>
+<img src='https://i.imgur.com/fvst9Xo.gif' width='90%'/>
 <br>
 
 我當初之所以會搞得這麼複雜，是因為我想要以 [Thread](https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) 呈現每一台機器是各自獨立，其產生各自的數據並傳送至資料庫中(如下圖)，而在 [Java 中一個子類別(Class)只能繼承一個父類別(Class)](https://openhome.cc/Gossip/Java/Polymorphism-is-a.html)。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/iBiFtc0.gif' width='90%'/>
-</div>
+<img src='https://i.imgur.com/iBiFtc0.gif' width='90%'/>
 <br>
 
 為了方便起見，我使用 [JFrame](https://docs.oracle.com/javase/7/docs/api/javax/swing/JFrame.html) 與 [ActionListener](https://docs.oracle.com/javase/7/docs/api/java/awt/event/ActionListener.html) 將上述的 **Data Generator** 實作成桌面應用程式。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/R6u6OVM.png' width='90%'/>
-</div>
+<img align='middle' src='https://i.imgur.com/R6u6OVM.png' width='90%'/>
 <hr>
 
 ### Model - Mean
-平均值這件事，當然就是 $\bar{x} = \frac{1}{n}\sum\limits_{i=1}^{n}x_i$ 就可以解決啦，但是 Java 的生態系龐大，開源的 package 眾多，真的沒有人造過這顆輪子嗎？
+平均值這件事，當然就是 ![](https://chart.googleapis.com/chart?cht=tx&chl=$\bar{x}%20=%20\frac{1}{n}\sum\limits_{i=1}^{n}x_i$) 就可以解決啦，但是 Java 的生態系龐大，開源的 package 眾多，真的沒有人造過這顆輪子嗎？
 
 >「不要重新打造輪子」雖然很實在，但是享受打造輪子的過程卻是很爽快
 
@@ -108,28 +100,23 @@ public static void main(String[] args) {
 標準差，在敘述統計上被用來檢視一組資料的離散程度。標準差越低時，表示資料的離散程度低，資料點距離平均值(Mean)越近；反之，當標準差越高時，表示資料的離散程度高，資料點距離平均值(Mean)越遠。標準差又分兩種，**母體標準差**及**樣本標準差**。
 
 #### 母體標準差(Population Standard Deviation):
-當整個群體中有 $n$ 個樣本，而且每個樣本的值為 $x_1, x_2,...,x_n$ ，再而且群體中的每一筆資料皆可取得時，就適用於母體標準差。例如：假設向日葵小班有 10 名小朋友，其中每位小朋友的年齡分別是 {3, 5, 4, 5, 3, 3, 5, 4, 5, 3}，帶入以下的公式即可得年齡標準差($\sigma = 0.8944271909999159$)。
+當整個群體中有 ![](https://chart.googleapis.com/chart?cht=tx&chl=$n$) 個樣本，而且每個樣本的值為 ![](https://chart.googleapis.com/chart?cht=tx&chl=$x_1,%20x_2,...,x_n$) ，再而且群體中的每一筆資料皆可取得時，就適用於母體標準差。例如：假設向日葵小班有 10 名小朋友，其中每位小朋友的年齡分別是 {3, 5, 4, 5, 3, 3, 5, 4, 5, 3}，帶入以下的公式即可得年齡標準差(![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma%20=%200.8944271909999159$))。
 
-$$
-\sigma = \frac{1}{n}\sqrt{ \sum\limits_{i=1}^{n}(x_i - \mu)^2 }
-$$
+![SD](https://chart.googleapis.com/chart?cht=tx&chl=$$\sigma%20=%20\frac{1}{n}\sqrt{%20\sum\limits_{i=1}^{n}(x_i%20-%20\mu)^2%20}$$)
 
 Where:
-- $\sigma$ is the standard deviation
-- $\mu$ is the mean (also called the expected value)
-
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma$) is the standard deviation
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\mu$) is the mean (also called the expected value)
 
 #### 樣本標準差(Sample Standard Deviation):
 若我們關心的群體很大，通常是無法取得群體中的每一筆資料，而且為了減少調查成本與增加效率，常會使用抽樣(Sampling)的方式取得樣本，希望以樣本資料來代表整個群體。但是畢竟母體資料與樣本資料仍是有差異的，因此利用樣本標準差來代表母體標準差的**估計值**。
-例如：希望取得全國大學生的平均身高與其標準差時，是很難實際量測每一個人的身高，因此可以藉由抽樣的方式，在整個群體中抽取出 $n$ 個樣本，並帶入以下公式。
+例如：希望取得全國大學生的平均身高與其標準差時，是很難實際量測每一個人的身高，因此可以藉由抽樣的方式，在整個群體中抽取出 ![](https://chart.googleapis.com/chart?cht=tx&chl=$n$) 個樣本，並帶入以下公式。
 
-$$
-s = \frac{1}{n-1}\sqrt{ \sum\limits_{i=1}^{n}(x_i - \bar{x})^2 }
-$$
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$s%20=%20\frac{1}{n-1}\sqrt{%20\sum\limits_{i=1}^{n}(x_i%20-%20\bar{x})^2%20}$$)
 
 Where:
-- $s$ is the standard deviation
-- $\bar{x}$ is the mean (also called the expected value)
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$s$) is the standard deviation
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\bar{x}$) is the mean (also called the expected value)
 
 實作的部分，我還是在輪子館中找到了 [Standard Deviation](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/StandardDeviation.html):grin:，而且這個類別(Class)還可以藉由設定 `isBiasCorrected` 這個布林值(boolean)來選擇使用**母體標準差**或是**樣本標準差**；若為 `true` 是**樣本標準差**，若為 `false` 則為**母體標準差**。
 若需使用母體標準差，可於[建構](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/StandardDeviation.html#StandardDeviation(boolean))時傳入 `false` 即可；抑或可先利用[無傳參數建構子](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/StandardDeviation.html#StandardDeviation())建構該物件，再利用 [`setBiasCorrected`](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/StandardDeviation.html#setBiasCorrected(boolean)) 方法設定為 `false`。
@@ -151,38 +138,30 @@ public static void main(String[] args) {
 ### Model - Probability Density
 機率密度函數(Probability Density Function)簡單來說是指一個值所出現的次數或頻率，最常見的便是**常態分布**(Normal Distribution)又稱為**高斯分布**(Gaussian Distribution)。
 
-若一個隨機變數 $x$ 符合一個平均值為 $\mu$、標準差為 $\sigma$ 的常態分布時，其機率密度函數如下：
+若一個隨機變數 ![](https://chart.googleapis.com/chart?cht=tx&chl=$x$) 符合一個平均值為 ![](https://chart.googleapis.com/chart?cht=tx&chl=$\mu$)、標準差為 ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma$) 的常態分布時，其機率密度函數如下：
 
-$$
-f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
-$$
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$f(x|\mu,%20\sigma^2)%20=%20\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$)
 
 Where:
-- $\mu$ is the mean or expectation of the distribution
-- $\sigma$ is the standard deviation
-- $\sigma^2$ is the variance
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\mu$) is the mean or expectation of the distribution
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma$) is the standard deviation
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma^2$) is the variance
 
-而常見的**標準常態分布**則是平均值為 $\mu=0$、標準差為 $\sigma=1$的常態分布，其函數如下：
+而常見的**標準常態分布**則是平均值為 ![](https://chart.googleapis.com/chart?cht=tx&chl=$\mu=0$)、標準差為 ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma=1$) 的常態分布，其函數如下：
 
-$$
-f(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
-$$
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$f(x)%20=%20\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$$)
 
 下圖中的紅色曲線即為標準常態分布。當曲線越集中時(藍)，表示其標準差越小、精密度越高；反之，曲線越扁平時(橘)，其標準差越高；若是平均值較預期的有所偏移時，便會像綠色曲線一樣。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/WFjDytl.png' width='90%'/>
-</div>
 <div style='text-align: right'>
+	<img src='https://i.imgur.com/WFjDytl.png' width='90%'/>
     <a href='https://en.wikipedia.org/wiki/Normal_distribution'>Ref.</a>
 </div>
 
 常態分布圖再搭配製程中的規格上限值(Upper Spec Limit, USL)與規格下限值(Lower Spec Limit, LSL)時，便可以探討製程的準確度(Accuracy)、精密度(Precision)與良率。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/G9CxfGE.png' width='90%'/>
-</div>
 <div style='text-align: right'>
+    <img src='https://i.imgur.com/G9CxfGE.png' width='90%'/>
     <a href='https://calibrationawareness.com/calibration-awareness-what-is-calibration'>Ref.</a>
 </div>
 
@@ -193,7 +172,7 @@ $$
 4. 左一，這樣的曲線表示這個製程的良率、品質是最差的，不但產品有一大部分是超出規格上限，而且品質落差大；這個就像拿散彈槍打靶，不但自己的靶打不準，還打到隔壁的靶。:joy:
 <hr>
 
-介紹完一堆公式後還是必須將這些數學實作出來，於是我依舊在輪子館中找到 [Probability Density](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/distribution/NormalDistribution.html)。以下利用**標準常態分布**作為例子，首先於[建構](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/distribution/NormalDistribution.html#NormalDistribution(double,%20double))時傳入 [Mean](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/Mean.html) 與 [Standard Deviation](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/StandardDeviation.html) 即可建立 `Class`，接著利用該 `Class` 的 方法 [`density`](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/distribution/NormalDistribution.html#density(double))，傳入 $x$ 值得相對應的 $y$ 值。
+介紹完一堆公式後還是必須將這些數學實作出來，於是我依舊在輪子館中找到 [Probability Density](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/distribution/NormalDistribution.html)。以下利用**標準常態分布**作為例子，首先於[建構](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/distribution/NormalDistribution.html#NormalDistribution(double,%20double))時傳入 [Mean](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/Mean.html) 與 [Standard Deviation](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/stat/descriptive/moment/StandardDeviation.html) 即可建立 `Class`，接著利用該 `Class` 的 方法 [`density`](http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/distribution/NormalDistribution.html#density(double))，傳入 ![](https://chart.googleapis.com/chart?cht=tx&chl=$x$) 值得相對應的 ![](https://chart.googleapis.com/chart?cht=tx&chl=$y$) 值。
 
 ```java
 double mean = 0.0;
@@ -219,89 +198,68 @@ x :  3.0, y = 0.004431848411938009
 <hr>
 
 ### Model - Process Capability
-製程能力(Process Capability)是指製程的各種條件在標準化後，且在統計的管制狀態下所呈現之質與量的控制能力。製程能力又分為製程準確度 $C_a$(Capability of Accuracy)、製程精密度 $C_p$(Capability of Precision)及製程能力指標 $C_{pk}$(Process Capability Index)。
+製程能力(Process Capability)是指製程的各種條件在標準化後，且在統計的管制狀態下所呈現之質與量的控制能力。製程能力又分為製程準確度 ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)(Capability of Accuracy)、製程精密度 ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)(Capability of Precision)及製程能力指標 ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_{pk}$)(Process Capability Index)。
 
-#### 製程準確度(Capability of Accuracy, $C_a$)：
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/jlb847J.png' width='30%'/>
-</div>
+#### 製程準確度(Capability of Accuracy, ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$))：
+<img src='https://i.imgur.com/jlb847J.png' width='30%'/>
 
-$C_a$就像打靶時打中紅心的準度，當子彈越接近紅心(規格中心)時，準確度越高($C_a$越低)。應用於製程時，$C_a$可以代表製程中之實際量測平均值是否接近規格的中心，越接近規格中心，可視為製程準確度高；但是$C_a$並沒有考慮到製程本身的精密程度。
+![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)就像打靶時打中紅心的準度，當子彈越接近紅心(規格中心)時，準確度越高(![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)越低)。應用於製程時，![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)可以代表製程中之實際量測平均值是否接近規格的中心，越接近規格中心，可視為製程準確度高；但是![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)並沒有考慮到製程本身的精密程度。
 
-$$
-C_a = \frac{\bar{X}-\mu}{(USL - LSL)/2}
-$$
-$$
-\mu = \frac{USL + LSL}{2}
-$$
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$C_a%20=%20\frac{\bar{X}-\mu}{(USL%20-%20LSL)/2}$$)
+
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$\mu%20=%20\frac{USL%20%2B%20LSL}{2}$$)
 
 Where:
-- $\mu$ is the middle of the sppecification
-- $\bar{X}$ is the mean of the measured values in the process
-- $USL$ is the Upper Specification Limit
-- $LSL$ is the Lower Specification Limit
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\mu$) is the middle of the sppecification
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\bar{X}$) is the mean of the measured values in the process
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$USL$) is the Upper Specification Limit
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$LSL$) is the Lower Specification Limit
 
-#### 製程精密度(Capability of Precision, $C_p$)：
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/LETB0wt.png' width='30%'/>
-</div>
+#### 製程精密度(Capability of Precision, ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$))：
+<img src='https://i.imgur.com/LETB0wt.png' width='30%'/>
 
-$C_p$就像打靶時，子彈集中於相同位置的程度。應用於製程時，$C_p$代表產品之量測值的範圍大小，當量測值的範圍小，可視為此製程的精密度低；但是$C_p$並沒有考慮到製程本身的準確程度。
+![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)就像打靶時，子彈集中於相同位置的程度。應用於製程時，![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)代表產品之量測值的範圍大小，當量測值的範圍小，可視為此製程的精密度低；但是![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)並沒有考慮到製程本身的準確程度。
 
-$$
-C_p = \frac{USL - LSL}{6\sigma}
-$$
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$C_p%20=%20\frac{USL%20-%20LSL}{6\sigma}$$)
 
 Where:
-- $\sigma$ is the standard deviation
-- $USL$ is the Upper Specification Limit
-- $LSL$ is the Lower Specification Limit
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$\sigma$) is the standard deviation
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$USL$) is the Upper Specification Limit
+- ![](https://chart.googleapis.com/chart?cht=tx&chl=$LSL$) is the Lower Specification Limit
 
-#### 製程能力指標(Process Capability Index, $C_{pk}$)
-承上我們可以知道，若是單獨以$C_a$或$C_p$來判斷一個製程的優劣時，會容易有誤判的情形。例如，單兵打靶時，六顆子彈都打到同一個位置($C_p$高，精密度高)，但是他都打到隔壁單兵的靶($C_a$大，精準度低)。如此一來，該說這位單兵的槍法厲害還是不厲害呢？:confused:
+#### 製程能力指標(Process Capability Index, ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_{pk}$))
+承上我們可以知道，若是單獨以![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)或![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)來判斷一個製程的優劣時，會容易有誤判的情形。例如，單兵打靶時，六顆子彈都打到同一個位置(![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)高，精密度高)，但是他都打到隔壁單兵的靶(![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)大，精準度低)。如此一來，該說這位單兵的槍法厲害還是不厲害呢？:confused:
 
-因此$C_{pk}$就是綜合考量了$C_a$與$C_p$的製程能力指標。
+因此![](https://chart.googleapis.com/chart?cht=tx&chl=$C_{pk}$)就是綜合考量了![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)與![](https://chart.googleapis.com/chart?cht=tx&chl=$C_p$)的製程能力指標。
 
-$$
-C_{pk} = C_p * (1 - C_a)
-$$
+![](https://chart.googleapis.com/chart?cht=tx&chl=$$C_{pk}%20=%20C_p%20*%20(1%20-%20C_a)$$)
 <hr>
 
-實作的部分，我依照製程的$C_a$與$C_{pk}$給予給予**紅綠燈**來表示目前該製程的優劣，例如：
-- 當 $C_{pk} > 1.33$ `&&` $C_a < 12.5%$ 時給予**綠燈**，表示製程有足夠的能力
-- 當 $1.00 < C_{pk} < 1.33$ 時給予**黃燈**，表示製程能力尚可接受，但需提出改善計畫
-- 當 $C_{pk} < 1.00$ `||` $C_a > 25.0%$ 時給予**紅燈**，表示此製程需要立即改善
+實作的部分，我依照製程的![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a$)與![](https://chart.googleapis.com/chart?cht=tx&chl=$C_{pk}$)給予給予**紅綠燈**來表示目前該製程的優劣，例如：
+- 當 ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_{pk}%20%3E%201.33$) `&&` ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a%20%3C%2012.5%$) 時給予**綠燈**，表示製程有足夠的能力
+- 當 ![](https://chart.googleapis.com/chart?cht=tx&chl=$1.00%20%3C%20C_{pk}%20%3C%201.33$) 時給予**黃燈**，表示製程能力尚可接受，但需提出改善計畫
+- 當 ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_{pk}%20%3C%201.00$) `||` ![](https://chart.googleapis.com/chart?cht=tx&chl=$C_a%20%3E%2025.0%$) 時給予**紅燈**，表示此製程需要立即改善
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/AYOldKo.png' width='90%'/>
-</div>
+<img src='https://i.imgur.com/AYOldKo.png' width='90%'/>
 
 若製程的品質開始 `Going South`， 燈號就會從**綠燈**變成**黃燈**，**黃燈**主要是一個過渡期，讓工程師可以調整製程參數，想辦法回到**綠燈**，不要讓燈號變成**紅燈**；因為變成**紅燈**的時候，系統就會利用 [JavaMail](https://docs.oracle.com/javaee/7/api/javax/mail/package-summary.html) 自動發送一封 **Alarm 信**到主管的信箱。:scream:
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/ANUYJj9.png' width='90%'/>
-</div>
+<img src='https://i.imgur.com/ANUYJj9.png' width='90%'/>
 <hr>
 
 ### View - Historic Data
 歷史資料的部分，可以依照使用者選擇的時間區間去撈取資料，畫面左邊呈現資料區間中數值的變化，而且當滑鼠移動過去時，可以顯示每個時間點的**數值**；畫面右邊則是將所選取的資料繪製成常態分佈曲線(紅)，黃色線條由左至右則是 **LSL**、**規格中心**、**USL**。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/MV12Xx9.png' width='90%'/>
-</div>
+<img src='https://i.imgur.com/MV12Xx9.png' width='90%'/>
 
 另外，**`SAVE`** 按鈕可將所選取之歷史資料中的數值使用 [Serializable](https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html)、[I](https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html)/[O](https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html) 儲存成常見的 csv 檔。
 
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/JafiSdZ.png' width='90%'/>
-</div>
+<img src='https://i.imgur.com/JafiSdZ.png' width='90%'/>
 <hr>
 
 ### View - Real-Time Data
 即時資料的部分是呈現最近 10 分鐘的資料，而且利用 [AJAX](https://www.w3schools.com/js/js_ajax_intro.asp) 的方式，每 5 秒更新一次圖表。
-<div style='text-align: center'>
-    <img src='https://i.imgur.com/nLOISIT.gif' width='90%'/>
-</div>
+<img src='https://i.imgur.com/nLOISIT.gif' width='90%'/>
 
 
 ## Demo
